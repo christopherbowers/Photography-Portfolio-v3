@@ -4,7 +4,7 @@ By: Christopher Bowers
 
 [LinkedIn](https://linkedin.com/in/christopher-bowers-dev) | [Twitter](https://twitter.com/chrisipedia)
 
-[Trello Board](https://trello.com/b/DHE5hvNf)
+[Trello Board](https://trello.com/b/uo3BYHui)
 
 ### ERD
 ![](assets/ERD.png)
