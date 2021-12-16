@@ -15,6 +15,7 @@ const getProject = async (req, res) => {
   try {
     const { title } = req.params
     const project = await Project.findOne({ title:  title })
+    console.log(decodeURIComponent(title))
     return res.status(200).json({ project })
   } 
   catch (error) {
@@ -22,17 +23,23 @@ const getProject = async (req, res) => {
   }
 }
 
+const addImage = async (req, res) => {
 
-// const addImage = async () => {
-//   const { project } = req.params
-//   await Project.findOne(project, req.body, (project) => {
-// //     return res.status(200).json(project.image)
-//     console.log(project)
-//   })
-// }
+const { title } = req.params
+const project = await Project.findOne({ title: title })
+const images = project.image
+
+images.push(req.body)
+await project.save()
+
+console.log(images)
+res.send(project)
+}
+
+
 
 module.exports = {
   getAllProjects,
-  getProject
-//   addImage
+  getProject,
+  addImage
 }

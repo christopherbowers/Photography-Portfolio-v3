@@ -8,6 +8,7 @@ router.get('/', (req, res) => res.send('This is root!'))
 router.get('/projects', controllers.getAllProjects)
 router.get('/projects/:title', controllers.getProject)
 
+router.put('/projects/:title', controllers.addImage)
 // router.put('/:title', controllers.addImage)
 
 
