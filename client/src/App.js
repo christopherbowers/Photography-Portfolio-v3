@@ -31,8 +31,8 @@ function App() {
       
       <section>
         <Routes>
-          <Route path="/" element={ <Home /> }></Route>
-          <Route path="/projects/:title" element={ <ProjectPage /> } />
+          <Route exact path="/" element={ <Home /> }></Route>
+          <Route exact path="/projects/:slug" element={ <ProjectPage /> } />
         </Routes>
       </section>
       

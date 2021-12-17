@@ -1,4 +1,4 @@
-import ProjectNav from './ProjectNav'
+import { NavLink } from 'react-router-dom'
 
 export default function Nav(props) {
 
@@ -7,10 +7,7 @@ export default function Nav(props) {
     <ul>
       {
         props.projects.map((project) => (
-          <ProjectNav 
-            key={ project._id }
-            title={ project.title }
-          />
+          <li><NavLink to={( `/projects/${ project.slug }` )} >{ project.title }</NavLink></li>
         ))
       }
     </ul>
