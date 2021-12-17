@@ -1,23 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import { Route, Routes, useParams } from 'react-router-dom'
+import axios from 'axios'
+import Header from './components/Header'
+import Nav from './components/Nav'
+import Home from './components/Home'
+import ProjectPage from './components/ProjectPage'
+import Footer from './components/Footer'
 
 function App() {
+
+const params = useParams()
+
+  const [projects, setProjects] = useState([])
+
+  const getProjects = async () => {
+    const res = await axios.get('http://localhost:3001/api/projects')
+    setProjects(res.data.projects)
+//     console.log(res.data.projects)
+  }
+  
+  useEffect(() => {
+    getProjects()
+  }, [])
+
+
+function getProject (handle) {
+
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <section>
+        <Nav projects={ projects } />
+      </section>
+      
+      <section>
+        <Routes>
+          <Route path="/" element={ <Home /> }></Route>
+          <Route path="/projects/:title" element={ <ProjectPage projects={ projects } /> } />
+        </Routes>
+      </section>
+      
+      <footer>
+        <Footer />
+      </footer>
+      
     </div>
   );
 }
