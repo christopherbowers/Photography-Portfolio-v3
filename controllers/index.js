@@ -42,6 +42,18 @@ const addImage = async (req, res) => {
   }
 }
 
+const createProject = async (req, res) => {
+  try {
+    const project = await new Project(req.body)
+    await project.save()
+    return res.status(201).json({
+      project,
+    })
+  } catch (error) {
+    return res.sendStatus(500).send(error.message)
+  }
+}
+
 
 /* DELETE
 ============================================== */
@@ -49,11 +61,11 @@ const addImage = async (req, res) => {
 const deleteProject = async (req, res) => {
   try {
     const { title } = req.params
-    const project = await Project.findOneAndDelete({ title:  title })
-    return res.status(200)
+    await Project.findOneAndDelete({ title:  title })
+    return res.sendStatus(200)
   } 
   catch (error) {
-    return res.status(500).send(error.message)
+    return res.sendStatus(500).send(error.message)
   }
 }
 
@@ -62,5 +74,6 @@ module.exports = {
   getAllProjects,
   getProject,
   addImage,
+  createProject,
   deleteProject
 }
