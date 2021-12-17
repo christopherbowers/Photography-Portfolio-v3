@@ -4,15 +4,28 @@ const Project = require('../models/')
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 const main = async () => {
-  const projects = {
+  const projects = [
+  {
     title: "Constant Illuminations",
+    slug: "constant-illuminations",
     image: [
       {
         title: "Lindsay",
         year: "2008"
       }
     ]
+  },
+  {
+    title: "Stunts",
+    slug: "stunts",
+    image: [
+      {
+        title: "Wallride",
+        year: "2008"
+      }
+    ]
   }
+  ]
 
   await Project.insertMany(projects)
   console.log("Created projects")

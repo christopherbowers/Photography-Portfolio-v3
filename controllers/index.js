@@ -14,8 +14,8 @@ const getAllProjects = async (req, res) => {
 
 const getProject = async (req, res) => {
   try {
-    const { title } = req.params
-    const project = await Project.findOne({ title:  title })
+    const { slug } = req.params
+    const project = await Project.findOne({ slug:  slug })
     return res.status(200).json({ project })
   } 
   catch (error) {

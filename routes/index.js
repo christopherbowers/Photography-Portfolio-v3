@@ -3,7 +3,7 @@ const controllers = require('../controllers')
 const router = Router();
 
 router.get('/projects', controllers.getAllProjects)
-router.get('/projects/:title', controllers.getProject)
+router.get('/projects/:slug', controllers.getProject)
 
 router.delete('/projects/:title', controllers.deleteProject)
 router.post('/projects/', controllers.createProject)
