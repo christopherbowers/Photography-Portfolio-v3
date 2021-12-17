@@ -1,6 +1,7 @@
 const Project = require('../models')
 
-
+/* GET
+============================================== */
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find()
@@ -15,7 +16,6 @@ const getProject = async (req, res) => {
   try {
     const { title } = req.params
     const project = await Project.findOne({ title:  title })
-    console.log(decodeURIComponent(title))
     return res.status(200).json({ project })
   } 
   catch (error) {
@@ -23,23 +23,44 @@ const getProject = async (req, res) => {
   }
 }
 
+
+/* PUT
+============================================== */
+
 const addImage = async (req, res) => {
+  try {
+    const { title } = req.params
+    const project = await Project.findOne({ title: title })
+    const images = project.image
 
-const { title } = req.params
-const project = await Project.findOne({ title: title })
-const images = project.image
-
-images.push(req.body)
-await project.save()
-
-console.log(images)
-res.send(project)
+    images.push(req.body)
+    await project.save()
+    res.sendStatus(200)
+    
+  } catch (error) {
+    return res.sendStatus(500).send(error.message)
+  }
 }
 
+
+/* DELETE
+============================================== */
+
+const deleteProject = async (req, res) => {
+  try {
+    const { title } = req.params
+    const project = await Project.findOneAndDelete({ title:  title })
+    return res.status(200)
+  } 
+  catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
 
 
 module.exports = {
   getAllProjects,
   getProject,
-  addImage
+  addImage,
+  deleteProject
 }
