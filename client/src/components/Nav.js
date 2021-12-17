@@ -7,10 +7,10 @@ export default function Nav(props) {
     <ul>
       {
         props.projects.map((project) => (
-          <li><NavLink to={( `/projects/${ project.slug }` )} >{ project.title }</NavLink></li>
+          <li key={ project._id }><NavLink to={( `/projects/${ project.slug }` )} >{ project.title }</NavLink></li>
         ))
       }
+      <li><NavLink to="/dashboard">Dash Board</NavLink></li>
     </ul>
-    
   )
 }

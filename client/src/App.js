@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Nav from './components/Nav'
 import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
+import DashBoard from './components/DashBoard'
 import Footer from './components/Footer'
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   const getProjects = async () => {
     const res = await axios.get('http://localhost:3001/api/projects')
     setProjects(res.data.projects)
-//     console.log(res.data.projects)
+    document.title = 'Christopher Bowers'
   }
   
   useEffect(() => {
@@ -31,8 +32,9 @@ function App() {
       
       <section>
         <Routes>
-          <Route exact path="/" element={ <Home /> }></Route>
-          <Route exact path="/projects/:slug" element={ <ProjectPage /> } />
+          <Route path="/" element={ <Home /> }></Route>
+          <Route path="/projects/:slug" element={ <ProjectPage /> } />
+          <Route path="/dashboard" element={ <DashBoard /> } />
         </Routes>
       </section>
       
