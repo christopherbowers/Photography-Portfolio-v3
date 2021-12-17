@@ -4,6 +4,7 @@ const { Schema } = mongoose
 const Project = new Schema(
     {
         title: { type: String, unique: true, required: true, dropDups: true },
+        slug: String,
         image: [{
           title: String,
           year: String,
