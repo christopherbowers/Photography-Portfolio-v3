@@ -10,7 +10,7 @@ export default function Nav(props) {
           <li key={ project._id }><NavLink to={( `/projects/${ project.slug }` )} >{ project.title }</NavLink></li>
         ))
       }
+      <li><NavLink to="/dashboard">Dash Board</NavLink></li>
     </ul>
-    
   )
 }
