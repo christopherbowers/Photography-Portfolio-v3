@@ -2,8 +2,8 @@ import { NavLink } from 'react-router-dom'
 
 export default function ProjectNav(props) {
 
-const title = props.title.replace(' ', '-').toLowerCase()
+const titleSlug = props.title.replace(' ', '-').toLowerCase()
   return (
-    <li><NavLink to={( `/projects/${ title }` )} >{ props.title }</NavLink></li>
+    <li><NavLink to={( `/projects/${ titleSlug }` )} >{ props.title }</NavLink></li>
   )
 }

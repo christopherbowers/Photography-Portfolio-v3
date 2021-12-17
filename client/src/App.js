@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import axios from 'axios'
 import Header from './components/Header'
 import Nav from './components/Nav'
@@ -9,7 +9,6 @@ import Footer from './components/Footer'
 
 function App() {
 
-const params = useParams()
 
   const [projects, setProjects] = useState([])
 
@@ -22,11 +21,6 @@ const params = useParams()
   useEffect(() => {
     getProjects()
   }, [])
-
-
-function getProject (handle) {
-
-}
 
   return (
     <div className="App">
