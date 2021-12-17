@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const ProjectPage = () => {
-  const { title } = useParams()
+  const { slug } = useParams()
 
   const [project, setProject] = useState({})
   
@@ -11,20 +11,8 @@ const ProjectPage = () => {
     getProject()
   }, [])
 
-  const toTitleCase = (str) => {
-    const newStr = str.replace('-', ' ')
-    return newStr.replace(
-      /\w\S*/g,
-      function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }
-    )
-  }
-
-  const newSlug = toTitleCase(title).replace(' ', '%20')
-
   const getProject = async () => {
-    const res = await axios.get('http://localhost:3001/api/projects/' + newSlug )
+    const res = await axios.get('http://localhost:3001/api/projects/' + slug )
     setProject(res.data.project)
   }
 
@@ -33,6 +21,8 @@ const ProjectPage = () => {
   return (
   
     <h2>{project.title}</h2>
+    
+    
 
   
   )
