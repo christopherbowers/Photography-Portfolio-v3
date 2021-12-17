@@ -32,7 +32,7 @@ function App() {
       <section>
         <Routes>
           <Route path="/" element={ <Home /> }></Route>
-          <Route path="/projects/:title" element={ <ProjectPage projects={ projects } /> } />
+          <Route path="/projects/:title" element={ <ProjectPage /> } />
         </Routes>
       </section>
       
