@@ -36,7 +36,7 @@ function App() {
   }
   
   
-  const handleSubmit = async (e) => {
+  const handleSubmitProject = async (e) => {
     e.preventDefault()
     await axios
       .post(`http://localhost:3001/api/projects`, {
@@ -74,11 +74,12 @@ function App() {
           
           <Route path="/dashboard" 
             element={ <DashBoard 
+            projects={ projects }
             inputValue={ inputValue }
             handleChange={ handleChange }
-            handleSubmit={ handleSubmit }
+            handleSubmitProject={ handleSubmitProject }
             handleSubmitImage={ handleSubmitImage }
-            projects={ projects } /> }
+            /> }
           />
 
         </Routes>

@@ -8,14 +8,15 @@ export default function AddImages(props) {
     <div>
       <form onSubmit={ props.handleSubmitImage } >
         <label>Add Image: </label>
-        {/*<select onChange={ props.handleChange } name="title">
+        <select onChange={ props.handleChange } name="title">
+              <option>Select Project:</option>
           {
             props.projects.map((project) => (
               <option key={ project._id } >{ project.title }</option>
             ))
           }
-        </select>*/}
-        <input type="text" name="title" onChange={ props.handleChange } placeholder="Project Title" />
+        </select>
+        {/*<input type="text" name="title" onChange={ props.handleChange } placeholder="Project Title" />*/}
         <input type="text" name="image_title" onChange={ props.handleChange } placeholder="Image Title" />
         <input type="text" name="year" onChange={ props.handleChange } placeholder="Year"  />
         
