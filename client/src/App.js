@@ -47,11 +47,21 @@ function App() {
         getProjects()
       })
   }
+
+  const handleSubmitDeleteProject = async (e) => {
+    e.preventDefault()
+    await axios
+      .delete(`http://localhost:3001/api/projects/${inputValue.title}`, {
+        title: inputValue.title,
+        slug: slugify(inputValue.title)
+      })
+      .then(() => {
+        getProjects()
+      })
+  }
   
   const handleSubmitImage = async (e) => {
     e.preventDefault()
-    console.log(inputValue.title)
-    console.log(inputValue.image_title)
     await axios
       .put(`http://localhost:3001/api/projects/${inputValue.title}`, {
         image_title: inputValue.image_title,
@@ -78,6 +88,7 @@ function App() {
             inputValue={ inputValue }
             handleChange={ handleChange }
             handleSubmitProject={ handleSubmitProject }
+            handleSubmitDeleteProject={ handleSubmitDeleteProject }
             handleSubmitImage={ handleSubmitImage }
             /> }
           />
