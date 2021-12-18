@@ -29,7 +29,7 @@ return (
         project.image.map((image, index) => (
         <div className="image-container" key={index}>
           <img src={image.image_url} alt='' />
-          <p><strong>Title:</strong> {image.title}</p>
+          <p><strong>Title: </strong>{image.image_title}</p>
         </div>
         ))
       }

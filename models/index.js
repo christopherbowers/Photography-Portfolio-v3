@@ -6,7 +6,7 @@ const Project = new Schema(
         title: { type: String, unique: true, required: true, dropDups: true },
         slug: String,
         image: [{
-          title: String,
+          image_title: String,
           year: String,
           image_url: String
          }]

@@ -26,13 +26,13 @@ function App() {
   }, [])
 
   
-  const [inputValue, setInputValue] = useState({
-    title: '',
-    slug: ''
+  const [inputValue, setInputValue] = useState({})
+  const [file, selectedFile] = useState({
+    selectedFile: null
   })
 
   const handleChange = (e) => {
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value });
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value })
   }
   
   
@@ -50,10 +50,12 @@ function App() {
   
   const handleSubmitImage = async (e) => {
     e.preventDefault()
+    console.log(inputValue.title)
+    console.log(inputValue.image_title)
     await axios
-      .post(`http://localhost:3001/api/projects`, {
-        title: inputValue.title,
-        slug: slugify(inputValue.title)
+      .put(`http://localhost:3001/api/projects/${inputValue.title}`, {
+        image_title: inputValue.image_title,
+        year: inputValue.year        
       })
       .then(() => {
         getProjects()
