@@ -75,3 +75,12 @@ h1 {
 .grid-image-wrapper:hover {
   background-color: #eee;
 }
+
+
+input,
+button,
+select,
+label {
+  display: block;
+  margin: 10px;
+}

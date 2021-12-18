@@ -10,7 +10,7 @@ const main = async () => {
     slug: "constant-illuminations",
     image: [
       {
-        title: "Lindsay",
+        image_title: "Lindsay",
         year: "2008"
       }
     ]
@@ -20,7 +20,7 @@ const main = async () => {
     slug: "stunts",
     image: [
       {
-        title: "Wallride",
+        image_title: "Wallride",
         year: "2008"
       }
     ]
