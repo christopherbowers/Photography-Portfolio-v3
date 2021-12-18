@@ -5,6 +5,7 @@ export default function DashBoard(props) {
   return (
     <div>
       <AddProject {...props} />
+      <br />
       <AddImages {...props} />
     </div>
   )

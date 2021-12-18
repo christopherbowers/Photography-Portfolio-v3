@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import axios from 'axios'
 import slugify from 'react-slugify'
+import './App.css'
 import Header from './components/Header'
-import Nav from './components/Nav'
+// import Nav from './components/Nav'
 import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
 import DashBoard from './components/DashBoard'
 import Footer from './components/Footer'
+// import ProjectHome from './components/ProjectHome'
 
 function App() {
-
-//   let navigate = useNavigate()
 
   const [projects, setProjects] = useState([])
 
@@ -45,7 +45,18 @@ function App() {
       })
       .then(() => {
         getProjects()
-//         navigate.push('/projects')
+      })
+  }
+  
+  const handleSubmitImage = async (e) => {
+    e.preventDefault()
+    await axios
+      .post(`http://localhost:3001/api/projects`, {
+        title: inputValue.title,
+        slug: slugify(inputValue.title)
+      })
+      .then(() => {
+        getProjects()
       })
   }
 
@@ -55,15 +66,16 @@ function App() {
  
         <Routes>
         
-          <Route path="/" element={ <Home projects={ projects } /> } >
-            <Route path="/projects/:slug" element={ <ProjectPage /> } />
-          </Route>
+          <Route path="/" element={ <Home projects={ projects } /> } />
+
+          <Route path="/projects/:slug" element={ <ProjectPage /> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
             inputValue={ inputValue }
             handleChange={ handleChange }
             handleSubmit={ handleSubmit }
+            handleSubmitImage={ handleSubmitImage }
             projects={ projects } /> }
           />
 
