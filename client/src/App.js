@@ -52,16 +52,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <section>
-        <Nav projects={ projects } />
-      </section>
-      
-      <section>
+ 
         <Routes>
-          <Route path="/" element={ <Home /> }>
-          
+        
+          <Route path="/" element={ <Home projects={ projects } /> } >
+            <Route path="/projects/:slug" element={ <ProjectPage /> } />
           </Route>
-          <Route path="/projects/:slug" element={ <ProjectPage /> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
@@ -70,14 +66,11 @@ function App() {
             handleSubmit={ handleSubmit }
             projects={ projects } /> }
           />
+
         </Routes>
-          
-      </section>
-      
-      <footer>
-        <Footer />
-      </footer>
-      
+
+      <Footer />
+
     </div>
   );
 }

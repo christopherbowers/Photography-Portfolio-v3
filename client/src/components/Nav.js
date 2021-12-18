@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom'
 
 export default function Nav(props) {
-
   return (
-  
+    
+<div className="nav">
     <ul>
       {
         props.projects.map((project) => (
@@ -11,5 +11,7 @@ export default function Nav(props) {
         ))
       }
     </ul>
+</div>
+    
   )
 }
