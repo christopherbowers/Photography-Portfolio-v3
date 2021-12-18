@@ -22,18 +22,18 @@ if (isLoading) {
 
 return (
   
-    <div>
+    <div className="project-container">
     <h2>{project.title}</h2>
-      <div>
+      
       { 
         project.image.map((image, index) => (
-        <div key={index}>
+        <div className="image-container" key={index}>
           <img src={image.image_url} alt='' />
           <p><strong>Title:</strong> {image.title}</p>
         </div>
         ))
       }
-      </div>
+      
     </div>   
 
   

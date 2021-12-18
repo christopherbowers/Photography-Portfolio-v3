@@ -3,7 +3,6 @@
 // import axios from 'axios'
 
 export default function AddImages(props) {
-  console.log(props.projects)
   return (
     <div>
       <form onSubmit={ props.handleSubmit } >
