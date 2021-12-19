@@ -1,6 +1,7 @@
 .App {
 /*   text-align: center; */
-padding: 20px;
+padding: 0;
+margin: 0 auto;
 }
 
 /* Loading Spinner */
@@ -29,15 +30,26 @@ padding: 20px;
   }
 }
 
-h1 { 
+header > h1 { 
   font-size: 20px;
+  margin: 0;
+  padding: 15px 5px 5px 15px;
+  color: #ddd;
+}
+
+header a {
+  color: #fff;
 }
  
  a {
   text-decoration: none;
   }
  
- 
+ header {
+  background-color: #000;
+  width: 100%;
+  padding: 0 0 15px 0;
+ }
 
 .project-flex-container {
   display: flex;
@@ -76,11 +88,45 @@ h1 {
   background-color: #eee;
 }
 
+.dashboard-container {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 10px;
+  justify-content: space-between;
+}
+
+.form-container {
+  background-color: rgb(250, 250, 250);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: calc(50vw - 50px);
+  margin: 10px;
+}
+
 
 input,
 button,
 select,
 label {
-  display: block;
   margin: 10px;
+}
+
+
+
+form {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+/*   justify-content: center; */
+}
+
+form input[type="text"],
+select {
+  flex: 1;
+  justify-content: center;
+  width: 95%;
+}
+
+form > button {
+  width: 50px;
 }

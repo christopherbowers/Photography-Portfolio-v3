@@ -5,7 +5,7 @@
 export default function AddImages(props) {
   
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={ props.handleSubmitImage } >
         <label>Add Image: </label>
         <select onChange={ props.handleChange } name="title">
