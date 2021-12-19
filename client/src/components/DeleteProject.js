@@ -1,7 +1,7 @@
 export default function DeleteProject(props) {
   
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={ props.handleSubmitDeleteProject } >
         <label>Delete Project: </label>
         <select onChange={ props.handleChange } name="title">

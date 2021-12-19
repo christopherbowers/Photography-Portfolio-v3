@@ -4,10 +4,9 @@ import AddImages from './AddImages'
 
 export default function DashBoard(props) {
   return (
-    <div>
+    <div className="dashboard-container">
       <AddProject {...props} />
       <DeleteProject {...props} />
-      <br />
       <AddImages {...props} />
     </div>
   )
