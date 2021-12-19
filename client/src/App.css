@@ -5,12 +5,13 @@ margin: 0 auto;
 }
 
 /* Loading Spinner */
-.lds-dual-ring {
+.spinner {
   display: inline-block;
   width: 80px;
   height: 80px;
 }
-.lds-dual-ring:after {
+
+.spinner:after {
   content: " ";
   display: block;
   width: 64px;
@@ -19,9 +20,10 @@ margin: 0 auto;
   border-radius: 50%;
   border: 6px solid #fff;
   border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+  animation: spinner 1.2s linear infinite;
 }
-@keyframes lds-dual-ring {
+
+@keyframes spinner {
   0% {
     transform: rotate(0deg);
   }

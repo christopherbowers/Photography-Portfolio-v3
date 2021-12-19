@@ -17,7 +17,7 @@ const ProjectPage = () => {
   }, [slug])
   
 if (isLoading) {
-  return <div class="lds-dual-ring"></div>
+  return <div class="spinner"></div>
 }
 
 return (
