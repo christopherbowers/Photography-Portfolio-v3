@@ -27,9 +27,7 @@ function App() {
 
   
   const [inputValue, setInputValue] = useState({})
-  const [file, selectedFile] = useState({
-    selectedFile: null
-  })
+
 
   const handleChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value })
