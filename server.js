@@ -1,8 +1,9 @@
 const express = require('express')
-const routes = require('./routes')
-const db = require('./db')
+// const routes = require('./routes')
+// const db = require('./db')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const dotenv = require('dotenv')
 
 // const multer = require('multer')
 // const express = require('express')
@@ -11,21 +12,6 @@ const fs = require('fs')
 const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
 
-
-
-
-
-const PORT = process.env.PORT || 3001
-
-const app = express()
-const logger = require('morgan')
-
-app.use(bodyParser.json())
-app.use(logger('dev'))
-app.use(cors())
-
-
-app.use('/api', routes)
 
 const multer = require('multer')
 
@@ -41,6 +27,22 @@ let storage = multer.diskStorage(
 const upload = multer( { storage: storage } );
 
 const { uploadFile, getFileStream } = require('./controllers/s3')
+
+
+const PORT = process.env.PORT || 3001
+
+
+
+
+
+
+const app = express()
+const logger = require('morgan')
+
+// app.use(bodyParser.json())
+app.use(logger('dev'))
+// app.use(cors())
+
 
 
 app.post('/images', upload.single('image'), async (req, res) => {
@@ -65,8 +67,9 @@ app.get('/images/:key', (req, res) => {
   readStream.pipe(res)
 })
 
+// app.use('/api', routes)
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'))
+// db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
 app.listen(PORT, () => console.log(`Express Listening on port: ${PORT}`))
 
