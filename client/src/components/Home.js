@@ -19,8 +19,11 @@ export default function Home(props) {
         props.projects.map((project) => (
           <Link key={ project._id } to={( `/projects/${ project.slug }` )} >
             <div className="grid-item">
+              
+              
+              
               <div className="grid-image-wrapper">
-                <img src="" alt="" />
+                <img src={project.image[0].image_url} alt="" style={{width: '150px', height: '150px'}}/>
               </div>
               <h3 className="project-title">{ project.title }</h3>
             </div>

@@ -87,6 +87,20 @@ header a {
   transform: scale(105%)
 }
 
+.project-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 40px);
+/*   margin-left: 20px; */
+}
+
+.image-container,
+.image-container > img {
+  width: 100%;
+}
+
 .project-title {
   font-size: 14px;
 }
@@ -125,8 +139,6 @@ label {
   margin: 10px;
 }
 
-
-
 form {
   display: flex;
   flex-flow: column wrap;
@@ -143,4 +155,21 @@ select {
 
 form > button {
   width: 50px;
+}
+
+footer {
+  margin-top: 80px;
+  font-size: 13px;
+  text-align: center;
+  color: #333;
+}
+
+footer a {
+  padding: 0 2px;
+  box-shadow: inset 0 -.2em #222;
+  transition: all .25s;
+}
+
+footer a:hover {
+  box-shadow: inset 0 -1.1em #ccc;
 }
