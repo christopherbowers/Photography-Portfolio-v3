@@ -36,7 +36,7 @@ export default function AddImages(props) {
 //     console.log()
     
     await axios
-      .put(`http://localhost:3001/api/projects/${projectTitle}`, {
+      .put(`/api/projects/${projectTitle}`, {
         image_title: imageTitle,
         year: year,  
         image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-')
