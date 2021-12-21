@@ -21,7 +21,7 @@ function App() {
   const [projects, setProjects] = useState([])
 
   const getProjects = async () => {
-    const res = await axios.get('http://localhost:3001/api/projects')
+    const res = await axios.get('/api/projects')
     setProjects(res.data.projects)
     document.title = 'Christopher Bowers'
   }
@@ -42,7 +42,7 @@ function App() {
   const handleSubmitProject = async (e) => {
     e.preventDefault()
     await axios
-      .post(`http://localhost:3001/api/projects`, {
+      .post(`/api/projects`, {
         title: inputValue.title,
         slug: slugify(inputValue.title)
       })
@@ -54,7 +54,7 @@ function App() {
   const handleSubmitDeleteProject = async (e) => {
     e.preventDefault()
     await axios
-      .delete(`http://localhost:3001/api/projects/${inputValue.title}`, {
+      .delete(`/api/projects/${inputValue.title}`, {
         title: inputValue.title,
         slug: slugify(inputValue.title)
       })
@@ -66,7 +66,7 @@ function App() {
   const handleSubmitImage = async (e) => {
     e.preventDefault()
     await axios
-      .put(`http://localhost:3001/api/projects/${inputValue.title}`, {
+      .put(`/api/projects/${inputValue.title}`, {
         image_title: inputValue.image_title,
         year: inputValue.year        
       })
