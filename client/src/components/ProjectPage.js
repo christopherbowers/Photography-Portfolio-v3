@@ -17,7 +17,7 @@ const ProjectPage = () => {
   }, [slug])
   
 if (isLoading) {
-  return <div class="spinner"></div>
+  return <div className="spinner"></div>
 }
 
 return (
@@ -28,8 +28,8 @@ return (
       { 
         project.image.map((image, index) => (
         <div className="image-container" key={index}>
-          <img src={image.image_url} alt='' style={{wdith: '400px', height: '400px'}}/>
-          <p><strong>Title: </strong>{image.image_title}</p>
+          <img src={image.image_url} alt={image.image_title} className="image" />
+          <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
         </div>
         ))
       }
