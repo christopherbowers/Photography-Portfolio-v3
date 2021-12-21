@@ -9,10 +9,15 @@ import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
 import DashBoard from './components/DashBoard'
 import Footer from './components/Footer'
-// import ProjectHome from './components/ProjectHome'
+import Login from './components/Login'
 
 function App() {
+  
+  const [isLoggedIn, toggleLogin] = useState(true) // Set to false to disable by default
+  const handleLoginClick = () => toggleLogin(true)
+  const handleLogoutClick = () => toggleLogin(false)
 
+  
   const [projects, setProjects] = useState([])
 
   const getProjects = async () => {
@@ -72,7 +77,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header isLoggedIn={ isLoggedIn } />
  
         <Routes>
         
@@ -90,7 +95,15 @@ function App() {
             handleSubmitImage={ handleSubmitImage }
             /> }
           />
-
+          
+          <Route path="/login"
+              element={ <Login
+              isLoggedIn={ isLoggedIn }
+              handleLogoutClick={ handleLogoutClick }
+              handleLoginClick={ handleLoginClick } 
+            /> }
+          />
+          
         </Routes>
 
       <Footer />
