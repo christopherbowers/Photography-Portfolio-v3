@@ -11,17 +11,43 @@ const main = async () => {
     image: [
       {
         image_title: "Lindsay",
-        year: "2008"
-      }
-    ]
-  },
-  {
-    title: "Stunts",
-    slug: "stunts",
-    image: [
+        year: "2008",
+        image_url: "/images/lindsay.jpg"
+      },
       {
-        image_title: "Wallride",
-        year: "2008"
+        image_title: "Alyssa",
+        year: "2008",
+        image_url: "/images/alyssa.jpg"
+      },
+      {
+        image_title: "Casey",
+        year: "2008",
+        image_url: "/images/casey.jpg"
+      },
+      {
+        image_title: "Christopher",
+        year: "2008",
+        image_url: "/images/christopher.jpg"
+      },
+      {
+        image_title: "Devlyn",
+        year: "2008",
+        image_url: "/images/devlyn.jpg"
+      },
+      {
+        image_title: "erica",
+        year: "2008",
+        image_url: "/images/erica.jpg"
+      },
+      {
+        image_title: "Matt",
+        year: "2008",
+        image_url: "/images/matt.jpg"
+      },
+      {
+        image_title: "Pam",
+        year: "2008",
+        image_url: "/images/pam.jpg"
       }
     ]
   }
