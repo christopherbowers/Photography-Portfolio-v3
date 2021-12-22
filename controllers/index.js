@@ -1,4 +1,5 @@
-const Project = require('../models')
+const Project = require('../models/projects')
+const Image = require('../models/images')
 
 /* GET
 ============================================== */
@@ -15,8 +16,30 @@ const getAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const { slug } = req.params
-    const project = await Project.findOne({ slug:  slug })
-    return res.status(200).json({ project })
+    const project = await Project.find({ slug:  slug })
+    return res.status(200).json(project)
+  } 
+  catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
+
+// const getProductById = async (req, res) => {
+//   try {
+//     const id = req.params.id
+//     const products = await Product.findById(id).populate('reviews')
+//     return res.status(200).json(products)
+//   } catch (error) {
+//     return res.status(500).send(error.message)
+//   }
+// }
+
+const getAllImages = async (req, res) => {
+  try {
+//     const { slug } = req.params
+    const image = await Image.find()
+    return res.status(200).json({ image })
   } 
   catch (error) {
     return res.status(500).send(error.message)
@@ -32,10 +55,11 @@ const addImage = async (req, res) => {
     const { title } = req.params
     const project = await Project.findOne({ title: title })
     const images = project.image
-
-    images.push(req.body)
-    await project.save()
-    res.sendStatus(200)
+    
+    res.send
+//     images.push(req.body)
+//     await project.save()
+//     res.sendStatus(200)
     
   } catch (error) {
     return res.sendStatus(500).send(error.message)
@@ -72,6 +96,7 @@ const deleteProject = async (req, res) => {
 
 module.exports = {
   getAllProjects,
+  getAllImages,
   getProject,
   addImage,
   createProject,
