@@ -9,6 +9,8 @@ router.get('/projects/:slug', controllers.getProject)
 router.delete('/projects/:title', controllers.deleteProject)
 router.post('/projects/', controllers.createProject)
 
+router.post('/images', controllers.addImage)
+
 router.put('/projects/:title', controllers.addImage)
 
 
