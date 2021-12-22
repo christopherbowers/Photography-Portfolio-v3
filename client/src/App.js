@@ -20,7 +20,7 @@ function App() {
   const [projects, setProjects] = useState([])
 
   const getProjects = async () => {
-    const res = await axios.get('http://localhost:3001/api/projects')
+    const res = await axios.get('/api/projects')
     setProjects(res.data.projects)
   }
   
@@ -39,7 +39,7 @@ function App() {
   const handleSubmitProject = async (e) => {
     e.preventDefault()
     await axios
-      .post(`http://localhost:3001/api/projects`, {
+      .post(`/api/projects`, {
         title: inputValue.title,
         slug: slugify(inputValue.title)
       })
@@ -52,6 +52,20 @@ function App() {
     e.preventDefault()
     await axios
       .delete(`/api/projects/${inputValue.title}`, {
+        title: inputValue.title,
+        slug: slugify(inputValue.title)
+      })
+      .then(() => {
+        getProjects()
+      })
+  }
+  
+  const handleSubmitImage = async (e) => {
+    e.preventDefault()
+    await axios
+      .put(`/api/projects/${inputValue.title}`, {
+        image_title: inputValue.image_title,
+        year: inputValue.year        
       })
       .then(() => {
         getProjects()

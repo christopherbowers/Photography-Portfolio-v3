@@ -9,7 +9,7 @@ const ProjectPage = () => {
   const [project, setProject] = useState({})
   
   useEffect(() => {
-    axios.get('http://localhost:3001/api/projects/' + slug ).then(res => {
+    axios.get('/api/projects/' + slug ).then(res => {
       setProject(res.data.project)
       document.title = res.data.project.title
       setLoading(false)
