@@ -32,10 +32,6 @@ const { uploadFile, getFileStream } = require('./controllers/s3')
 const app = express()
 const logger = require('morgan')
 
-
-
-app.use(express.static(path.join(__dirname, "client", "build")))
-
 app.use(bodyParser.json())
 app.use(logger('dev'))
 app.use(cors())
@@ -68,6 +64,7 @@ app.use('/api', routes)
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
+app.use(express.static(path.join(__dirname, "client", "build")))
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 })

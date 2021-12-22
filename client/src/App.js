@@ -4,7 +4,6 @@ import axios from 'axios'
 import slugify from 'react-slugify'
 import './App.css'
 import Header from './components/Header'
-// import Nav from './components/Nav'
 import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
 import DashBoard from './components/DashBoard'
@@ -23,7 +22,6 @@ function App() {
   const getProjects = async () => {
     const res = await axios.get('/api/projects')
     setProjects(res.data.projects)
-    document.title = 'Christopher Bowers'
   }
   
   useEffect(() => {
@@ -37,8 +35,7 @@ function App() {
   const handleChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value })
   }
-  
-  
+
   const handleSubmitProject = async (e) => {
     e.preventDefault()
     await axios
@@ -77,13 +74,16 @@ function App() {
 
   return (
     <div className="App">
-      <Header isLoggedIn={ isLoggedIn } />
+      <Header 
+        isLoggedIn={ isLoggedIn }
+        projects={ projects } 
+      />
  
         <Routes>
         
           <Route path="/" element={ <Home projects={ projects } /> } />
 
-          <Route path="/projects/:slug" element={ <ProjectPage /> } />
+          <Route path="/projects/:slug" element={ <ProjectPage projects={ projects } /> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
@@ -92,7 +92,6 @@ function App() {
             handleChange={ handleChange }
             handleSubmitProject={ handleSubmitProject }
             handleSubmitDeleteProject={ handleSubmitDeleteProject }
-            handleSubmitImage={ handleSubmitImage }
             /> }
           />
           

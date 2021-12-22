@@ -1,4 +1,5 @@
-const Project = require('../models')
+const Project = require('../models/projects')
+const Image = require('../models/images')
 
 /* GET
 ============================================== */
@@ -15,8 +16,8 @@ const getAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const { slug } = req.params
-    const project = await Project.findOne({ slug:  slug })
-    return res.status(200).json({ project })
+    const project = await Project.find({ slug:  slug }).populate('image').exec()
+    return res.status(200).json(project)
   } 
   catch (error) {
     return res.status(500).send(error.message)
@@ -24,18 +25,35 @@ const getProject = async (req, res) => {
 }
 
 
-/* PUT
+const getAllImages = async (req, res) => {
+  try {
+    const image = await Image.find()
+    return res.status(200).json({ image })
+  } 
+  catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
+
+
+/* POST
 ============================================== */
+
+// Add image and append image id to project
 
 const addImage = async (req, res) => {
   try {
-    const { title } = req.params
-    const project = await Project.findOne({ title: title })
-    const images = project.image
+    
+    const projectId = req.body.project_id
+    const image = await new Image(req.body)
+    await image.save()
 
-    images.push(req.body)
-    await project.save()
-    res.sendStatus(200)
+    const project = await Project.findById(projectId)
+    project.image.push(image._id)
+    await Project.findByIdAndUpdate(projectId, project)
+    
+    return res.status(201).json(image)
     
   } catch (error) {
     return res.sendStatus(500).send(error.message)
@@ -72,6 +90,7 @@ const deleteProject = async (req, res) => {
 
 module.exports = {
   getAllProjects,
+  getAllImages,
   getProject,
   addImage,
   createProject,

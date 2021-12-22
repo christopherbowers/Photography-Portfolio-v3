@@ -97,10 +97,21 @@ header a {
   flex-flow: column nowrap;
 }
 
-.image-container,
+.image-container {
+  margin-bottom: 100px;
+}
+
 .image-container > img {
-  width: calc(100vw - 40px);
-/*   width: 100%; */
+  width: calc(100vw - 200px);
+}
+
+@media screen and (max-width: 600px) {
+.image-container > img {
+  width: calc(100vw - 20px);
+}
+header h1 { font-size: 16px; }
+header > div {    visibility: hidden;
+    position: relative;}
 }
 
 .image-container p {
