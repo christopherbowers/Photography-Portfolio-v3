@@ -10,12 +10,11 @@ const ProjectPage = () => {
   
   useEffect(() => {
     axios.get('/api/projects/' + slug ).then(res => {
-      setProject(res.data[0])
-      document.title = res.data[0].title
+      setProject(res.data.project)
+      document.title = res.data.project.title
       setLoading(false)
     })
   }, [slug])
-  
   
 if (isLoading) {
   return <div className="spinner"></div>
