@@ -68,15 +68,35 @@ header a {
 .project-flex-container {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
   gap: 20px;
-  text-align: center;
 }
 
 .project-flex-container > a {
-/*   padding: 20px; */
   text-decoration: none;
   width: 150px;
+}
+
+.side-nav {
+  font-size: 26px;
+  padding: 20px;
+}
+
+.side-nav li {
+  list-style-type: none;
+  text-align: left;
+}
+
+.side-nav ul {
+  padding: 0;
+}
+
+.side-nav a {
+  color: #000;
+  font-size: 20px;
+}
+
+.side-nav a:hover {
+  color: #999;
 }
 
 .grid-item {
@@ -88,39 +108,29 @@ header a {
 }
 
 .project-container {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-flow: column nowrap;
 }
 
 .image-container,
 .image-container > img {
-  width: calc(100vw - 40px);
-/*   width: 100%; */
+  width: calc(100vw - 100px);
+  max-width: 600px;
+  border-radius: 3px;
 }
 
 .image-container p {
   font-size: 13px;
-  margin: 0;
+  margin: 0 0 50px 0;
 }
 
 .project-title {
   font-size: 14px;
-}
-
-.grid-image-wrapper {
-  background-color: #ccc;
-  width: 150px;
-  height: 150px;
-  transition: all .5s; 
-}
-
-.grid-image-wrapper:hover {
-  background-color: #eee;
 }
 
 .dashboard-container {
@@ -134,7 +144,6 @@ header a {
   background-color: rgb(250, 250, 250);
   border: 1px solid #ccc;
   border-radius: 6px;
-/*   width: calc(50vw - 50px); */
   padding: 10px;
   margin: 15px;
   display: flex;
@@ -155,7 +164,6 @@ form {
   display: flex;
   flex-flow: column wrap;
   align-content: center;
-/*   justify-content: center; */
 }
 
 form input[type="text"],
@@ -196,3 +204,5 @@ footer a {
 footer a:hover {
   box-shadow: inset 0 -1.1em #ccc;
 }
+
+

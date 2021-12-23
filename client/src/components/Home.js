@@ -19,6 +19,7 @@ export default function Home(props) {
       
     <div className="project-flex-container">
     <div className="side-nav">
+      <h2>Projects:</h2>
       <ul>
         {
           props.projects.map((project) => (

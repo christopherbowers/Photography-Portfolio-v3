@@ -63,8 +63,9 @@ export default function AddImages(props) {
   
   const isLoggedIn = props.isLoggedIn
   
-  if (!isLoggedIn) {
   
+  if (isLoggedIn) {
+
   return (
   
     <div className="form-container">
@@ -90,7 +91,7 @@ export default function AddImages(props) {
   )
 }
 
-return (
+ return (
     <div></div>
   )
-}
+} 
