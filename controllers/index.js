@@ -5,8 +5,9 @@ const Image = require('../models/images')
 ============================================== */
 const getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.find()
+    const projects = await Project.find({})
     return res.status(200).json({ projects })
+//     .populate('image').exec()
   } 
   catch (error) {
     return res.status(500).send(error.message)
@@ -16,7 +17,7 @@ const getAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const id = req.params.id
-    const project = await Project.findById(id).populate('image').exec()
+    const project = await Project.findById(id).populate('image')
     return res.status(200).json({ project })
   } 
   catch (error) {

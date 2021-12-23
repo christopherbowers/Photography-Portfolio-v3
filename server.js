@@ -41,7 +41,7 @@ app.use(logger('dev'))
 app.use(cors())
 
 // Send files to S3
-app.post('/images', upload.single('image'), async (req, res) => {
+app.post('/upload', upload.single('image'), async (req, res) => {
   
   const file = req.file
   console.log(file)
@@ -49,8 +49,6 @@ app.post('/images', upload.single('image'), async (req, res) => {
   const result = await uploadFile(file)
   await unlinkFile(file.path)
   console.log(result)
-  const description = req.body.description
-  console.log(description)
   res.send({imagePath: `/images/${result.Key}`})
   
 })

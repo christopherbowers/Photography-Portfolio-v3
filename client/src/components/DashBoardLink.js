@@ -8,7 +8,7 @@ export default function DashBoardLink(props) {
     
   return (
       <div>
-        <NavLink to="/dashboard">Dash Board</NavLink>
+        <NavLink to="/dashboard">Add Project</NavLink>
       </div>
     )
   }

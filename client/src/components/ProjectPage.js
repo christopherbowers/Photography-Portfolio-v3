@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import AddImages from './AddImages'
 
-const ProjectPage = () => {
+const ProjectPage = (props) => {
   const { slug } = useParams()
   
   const [isLoading, setLoading] = useState(true);
@@ -23,6 +24,7 @@ if (isLoading) {
 return (
   
     <div className="project-container">
+    <AddImages props {...props}/>
     <h2>{project.title}</h2>
       
       { 
@@ -35,7 +37,7 @@ return (
       }
       
     </div>   
-
+  
   
   )
 }
