@@ -11,14 +11,14 @@ const projects = async () => {
     title: "Constant Illuminations",
     slug: "constant-illuminations",
     image: [
-//       "61c3b6b328a4d3375b83baf5",
-//       "61c3b6b328a4d3375b83baf0",
-//       "61c3b2cb0b1ac73cefd6b09b",
-//       "61c3b255b5f38d196bfbd18b",
-//       "61c3b255b5f38d196bfbd18a",
-//       "61c3b255b5f38d196bfbd18c",
-//       "61c3b6b328a4d3375b83baf5",
-//       "61c3ad1744c41ec39162c679",
+      "61c3b6b328a4d3375b83baf5",
+      "61c3b6b328a4d3375b83baf0",
+      "61c3b2cb0b1ac73cefd6b09b",
+      "61c3b255b5f38d196bfbd18b",
+      "61c3b255b5f38d196bfbd18a",
+      "61c3b255b5f38d196bfbd18c",
+      "61c3b6b328a4d3375b83baf5",
+      "61c3ad1744c41ec39162c679",
       "61c3aca638219c178120cf74"
     ]
   }
