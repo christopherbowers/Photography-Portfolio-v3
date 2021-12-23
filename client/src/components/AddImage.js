@@ -26,20 +26,22 @@ export default function AddImages(props) {
 
   const submit = async (e) => {
     e.preventDefault()
-//     console.log(file)
 
     const result = await postImage({image: file})
     setImages([result.image, ...images])
     
-    const projectTitle = encodeURI(props.inputValue.title)
+    const selector = document.querySelector("#projectID")
     
-//     console.log()
+    const projectID = selector.options[selector.selectedIndex].value
+    
+    console.log(projectID)
     
     await axios
-      .put(`/api/projects/${projectTitle}`, {
+      .post('/api/images', {
         image_title: imageTitle,
         year: year,  
-        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-')
+        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-'),
+        project_id: projectID
     })
   }
 
@@ -50,11 +52,11 @@ export default function AddImages(props) {
       <form onSubmit={ submit } >
 
         <label>Add Image: </label>
-        <select onChange={ props.handleChange } name="title">
-          <option>Select Project:</option>
+        <select id="projectID" onChange={ props.handleChange } name="title">
+          <option >Select Project:</option>
           {
             props.projects.map((project) => (
-              <option key={ project._id } >{ project.title }</option>
+              <option key={ project._id } value={ project._id } >{ project.title }</option>
             ))
           }
         </select>

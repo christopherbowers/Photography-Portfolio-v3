@@ -21,9 +21,8 @@ function App() {
 
   const getProjects = async () => {
     const res = await axios.get('/api/projects')
-    setProjects(res.data.projects)
+    setProjects(res.data)
   }
-  
   useEffect(() => {
     getProjects()
   }, [])
@@ -33,7 +32,7 @@ function App() {
 
 
   const handleChange = (e) => {
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value })
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value, [e.target.id]: e.target.value })
   }
 
   const handleSubmitProject = async (e) => {
@@ -59,18 +58,7 @@ function App() {
         getProjects()
       })
   }
-  
-  const handleSubmitImage = async (e) => {
-    e.preventDefault()
-    await axios
-      .put(`/api/projects/${inputValue.title}`, {
-        image_title: inputValue.image_title,
-        year: inputValue.year        
-      })
-      .then(() => {
-        getProjects()
-      })
-  }
+
 
   return (
     <div className="App">
