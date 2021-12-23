@@ -30,11 +30,11 @@ export default function Home(props) {
         }
       </ul>
     </div>
-    <div>
+    <div className="splash-image">
 
+      <img src="/images/pam.jpg" alt="Pam" />
 
     </div>
-      
     </div>
   )
 }

@@ -34,9 +34,10 @@ export default function AddImages(props) {
         image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-'),
         project_id: slug
     })
-    setTimeout(function(){
-      window.location.reload()
-    }, 1000)
+//     setTimeout(function(){
+//       props.getProjects()
+//       navigate(`/projects/${slug}`)
+//     }, 1000)
   }
 
 
