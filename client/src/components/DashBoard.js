@@ -1,6 +1,6 @@
 import AddProject from './AddProject'
 import DeleteProject from './DeleteProject'
-import AddImages from './AddImages'
+import AddImage from './AddImage'
 import DeleteImages from './DeleteImages'
 
 export default function DashBoard(props) {
@@ -8,7 +8,7 @@ export default function DashBoard(props) {
     <div className="dashboard-container">
       <AddProject {...props} />
       <DeleteProject {...props} />
-      <AddImages {...props} />
+      <AddImage {...props} />
       {/*<DeleteImages {...props} />*/}
     </div>
   )
