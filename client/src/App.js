@@ -14,7 +14,7 @@ import Login from './components/Login'
 function App() {
   const navigate = useNavigate()
   
-  const [isLoggedIn, toggleLogin] = useState(true) // Set to false to disable by default
+  const [isLoggedIn, toggleLogin] = useState(false) // Set to false to disable by default
   const handleLoginClick = () => toggleLogin(true)
   const handleLogoutClick = () => toggleLogin(false)
 
@@ -81,7 +81,7 @@ function App() {
         
           <Route path="/" element={ <Home projects={ projects } images={ images } /> } />
 
-          <Route path="/projects/:slug" element={ <ProjectPage getProjects={ getProjects } getImages={ getImages } /> } />
+          <Route path="/projects/:slug" element={ <ProjectPage getProjects={ getProjects } getImages={ getImages } isLoggedIn= { isLoggedIn }/> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
