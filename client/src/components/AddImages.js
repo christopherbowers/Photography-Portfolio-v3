@@ -51,8 +51,6 @@ export default function AddImages(props) {
   const submitUpdateProject = async (e) => {
     e.preventDefault()
     
-    console.log(e.target.title.value)
-    
     axios.post(`/api/projects/${slug}`, {
       title: e.target.title.value
     })

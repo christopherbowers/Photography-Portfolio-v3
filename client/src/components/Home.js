@@ -7,10 +7,6 @@ import { Link } from 'react-router-dom'
 
 export default function Home(props) {
 
-//     console.log(props.images[2].image_url)
-    
-//     let imageUrl = props.images[2].image_url
-    
    useEffect(() => {
      document.title = 'Portfolio | Home'
    }, [])
