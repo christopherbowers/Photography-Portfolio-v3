@@ -47,6 +47,20 @@ export default function AddImages(props) {
     navigate("/")
   }
   
+  const submitUpdateProject = async (e) => {
+    e.preventDefault()
+    
+    console.log(e.target.title.value)
+    
+    axios.post(`/api/projects/${slug}`, {
+      title: e.target.title.value
+    })
+    .then(() => {
+    props.getProjects()
+    navigate(`/projects/${slug}`)
+    })
+  }
+  
   const isLoggedIn = props.isLoggedIn
   
   if (!isLoggedIn) {
@@ -60,13 +74,17 @@ export default function AddImages(props) {
         <input onChange={ fileSelected } type="file" accept="image/*"></input>
         <input name="title" type="text" placeholder="Image Title" />
         <input name="year" type="text" placeholder="Year" />
-        <button type="submit">Add</button>
+        <button type="submit"style={{backgroundColor: "green", color: "white", borderColor: "green"}}>Add</button>
       </form>
       <form onSubmit={ submitDeleteProject } >
         <label>Delete Project: </label>
-        <button type="submit">Delete</button>
+        <button type="submit" style={{backgroundColor: "red", color: "white", borderColor: "red"}}>Delete</button>
       </form>
-      
+      <form onSubmit={ submitUpdateProject } >
+        <label>Change Project Title: </label>
+        <input type="text" placeholder="New Project Title" name="title" />
+        <button type="submit">Update</button>
+      </form>
     </div>
     
   )

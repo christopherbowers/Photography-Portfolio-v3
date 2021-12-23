@@ -97,6 +97,22 @@ const deleteImage = async (req, res) => {
 }
 
 
+
+const updateProject = async (req, res) => {
+  try {
+    const id = req.params.id
+
+    
+    const project = await Project.findByIdAndUpdate(id, req.body)
+    
+    return res.status(201).json({project})
+  } catch (error) {
+    return res.sendStatus(500).send(error.message)
+  }
+}
+
+
+
 module.exports = {
   getAllProjects,
   getProject,
@@ -104,5 +120,6 @@ module.exports = {
   getAllImages,
   createProject,
   deleteProject,
-  deleteImage
+  deleteImage,
+  updateProject
 }
