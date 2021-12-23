@@ -1,23 +1,22 @@
 import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import slugify from 'react-slugify'
 
 export default function AddImages(props) {
 
+  const {slug} = useParams()
+  let navigate = useNavigate()
 
   async function postImage({image}) {
     const formData = new FormData();
     formData.append("image", image)
   
-    const result = await axios.post('/images', formData, { headers: {'Content-Type': 'multipart/form-data'}})
+    const result = await axios.post('/upload', formData, { headers: {'Content-Type': 'multipart/form-data'}})
     return result.data
   }
 
   const [file, setFile] = useState()
-  const [imageTitle, setImageTitle] = useState('')
-  const [year, setYear] = useState('')
   const [images, setImages] = useState([])
-
 
   const fileSelected = event => {
     const file = event.target.files[0]
@@ -26,47 +25,54 @@ export default function AddImages(props) {
 
   const submit = async (e) => {
     e.preventDefault()
-//     console.log(file)
-
     const result = await postImage({image: file})
-    setImages([result.image, ...images])
-    
-    const projectTitle = encodeURI(props.inputValue.title)
-    
-//     console.log()
     
     await axios
-      .put(`/api/projects/${projectTitle}`, {
-        image_title: imageTitle,
-        year: year,  
-        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-')
+      .post(`/api/images`, {
+        image_title: e.target.title.value,
+        year: e.target.year.value,  
+        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-'),
+        project_id: slug
     })
+    setTimeout(function(){
+      window.location.reload()
+    }, 1000)
   }
 
+
+  const submitDeleteProject = async (e) => {
+    e.preventDefault()
+    await axios.delete(`/api/projects/${slug}`)
+    props.getProjects()
+    navigate("/")
+  }
+  
+  const isLoggedIn = props.isLoggedIn
+  
+  if (!isLoggedIn) {
+  
   return (
   
     <div className="form-container">
 
       <form onSubmit={ submit } >
-
         <label>Add Image: </label>
-        <select onChange={ props.handleChange } name="title">
-          <option>Select Project:</option>
-          {
-            props.projects.map((project) => (
-              <option key={ project._id } >{ project.title }</option>
-            ))
-          }
-        </select>
-
         <input onChange={ fileSelected } type="file" accept="image/*"></input>
-        <input value={ imageTitle } onChange={e => setImageTitle(e.target.value) } type="text" placeholder="Image Title" />
-        <input value={ year } onChange={e => setYear(e.target.value)} type="text" placeholder="Year" />
-        
+        <input name="title" type="text" placeholder="Image Title" />
+        <input name="year" type="text" placeholder="Year" />
         <button type="submit">Add</button>
+      </form>
+      <form onSubmit={ submitDeleteProject } >
+        <label>Delete Project: </label>
+        <button type="submit">Delete</button>
       </form>
       
     </div>
     
+  )
+}
+
+return (
+    <div></div>
   )
 }

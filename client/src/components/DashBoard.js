@@ -6,8 +6,6 @@ export default function DashBoard(props) {
   return (
     <div className="dashboard-container">
       <AddProject {...props} />
-      <DeleteProject {...props} />
-      <AddImages {...props} />
     </div>
   )
 }

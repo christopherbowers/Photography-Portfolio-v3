@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import slugify from 'react-slugify'
 import './App.css'
@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 import Login from './components/Login'
 
 function App() {
+  const navigate = useNavigate()
   
   const [isLoggedIn, toggleLogin] = useState(true) // Set to false to disable by default
   const handleLoginClick = () => toggleLogin(true)
@@ -19,6 +20,7 @@ function App() {
 
   
   const [projects, setProjects] = useState([])
+  const [images, setImages] = useState([])
 
   const getProjects = async () => {
     const res = await axios.get('/api/projects')
@@ -26,8 +28,14 @@ function App() {
     document.title = 'Christopher Bowers'
   }
   
+  const getImages = async () => {
+    const res = await axios.get('/api/images')
+    setImages(res.data.images)
+  }
+  
   useEffect(() => {
     getProjects()
+    getImages()
   }, [])
 
   
@@ -48,20 +56,10 @@ function App() {
       })
       .then(() => {
         getProjects()
+        navigate("/")
       })
   }
 
-  const handleSubmitDeleteProject = async (e) => {
-    e.preventDefault()
-    await axios
-      .delete(`/api/projects/${inputValue.title}`, {
-        title: inputValue.title,
-        slug: slugify(inputValue.title)
-      })
-      .then(() => {
-        getProjects()
-      })
-  }
   
   const handleSubmitImage = async (e) => {
     e.preventDefault()
@@ -81,9 +79,9 @@ function App() {
  
         <Routes>
         
-          <Route path="/" element={ <Home projects={ projects } /> } />
+          <Route path="/" element={ <Home projects={ projects } images={ images } /> } />
 
-          <Route path="/projects/:slug" element={ <ProjectPage /> } />
+          <Route path="/projects/:slug" element={ <ProjectPage getProjects={ getProjects } getImages={ getImages } /> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
@@ -91,7 +89,6 @@ function App() {
             inputValue={ inputValue }
             handleChange={ handleChange }
             handleSubmitProject={ handleSubmitProject }
-            handleSubmitDeleteProject={ handleSubmitDeleteProject }
             handleSubmitImage={ handleSubmitImage }
             /> }
           />

@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom'
 
 export default function Home(props) {
 
+//     console.log(props.images[2].image_url)
+    
+//     let imageUrl = props.images[2].image_url
+    
    useEffect(() => {
      document.title = 'Portfolio | Home'
    }, [])
@@ -14,23 +18,23 @@ export default function Home(props) {
   return (
       
     <div className="project-flex-container">
-    
-      {
-        props.projects.map((project) => (
-          <Link key={ project._id } to={( `/projects/${ project.slug }` )} >
-            <div className="grid-item">
-              
-              
-              
-              <div className="grid-image-wrapper">
-                <img src={project.image[0].image_url} alt="" style={{width: '150px', height: '150px'}}/>
-              </div>
-              <h3 className="project-title">{ project.title }</h3>
-            </div>
-          </Link>
-        ))
-      }
-    
-    </div> 
+    <div className="side-nav">
+      <ul>
+        {
+          props.projects.map((project) => (
+            <li key={ project._id } className="project-title">
+              <Link  to={( `/projects/${ project._id }` )} >{ project.title }</Link>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+
+
+    </div>
+      
+    </div>
   )
 }
+//           <img  src={imageUrl} alt="" />
