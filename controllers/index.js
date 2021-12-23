@@ -1,4 +1,5 @@
-const Project = require('../models')
+const Project = require('../models/projects')
+const Image = require('../models/images')
 
 /* GET
 ============================================== */
@@ -14,8 +15,8 @@ const getAllProjects = async (req, res) => {
 
 const getProject = async (req, res) => {
   try {
-    const { slug } = req.params
-    const project = await Project.findOne({ slug:  slug })
+    const id = req.params.id
+    const project = await Project.findById(id).populate('image').exec()
     return res.status(200).json({ project })
   } 
   catch (error) {
@@ -24,18 +25,31 @@ const getProject = async (req, res) => {
 }
 
 
-/* PUT
+const getAllImages = async (req, res) => {
+  try {
+    const images = await Image.find()
+    return res.status(200).json({ images })
+  } 
+  catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+
+/* POST
 ============================================== */
 
 const addImage = async (req, res) => {
   try {
-    const { title } = req.params
-    const project = await Project.findOne({ title: title })
-    const images = project.image
+    
+    const projectId = req.body.project_id
+    const image = await new Image(req.body)
+    await image.save()
 
-    images.push(req.body)
-    await project.save()
-    res.sendStatus(200)
+    const project = await Project.findById(projectId)
+    project.image.push(image._id)
+    await Project.findByIdAndUpdate(projectId, project)
+    
+    return res.status(201).json(image)
     
   } catch (error) {
     return res.sendStatus(500).send(error.message)
@@ -60,8 +74,20 @@ const createProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
   try {
-    const { title } = req.params
-    await Project.findOneAndDelete({ title:  title })
+    const id = req.params.id
+    await Project.findByIdAndDelete(id)
+    await Image.deleteMany({project_id: id})
+    return res.sendStatus(200)
+  } 
+  catch (error) {
+    return res.sendStatus(500).send(error.message)
+  }
+}
+
+const deleteImage = async (req, res) => {
+  try {
+    const id = req.params.id
+    await Image.findByIdAndDelete(id)
     return res.sendStatus(200)
   } 
   catch (error) {
@@ -74,6 +100,8 @@ module.exports = {
   getAllProjects,
   getProject,
   addImage,
+  getAllImages,
   createProject,
-  deleteProject
+  deleteProject,
+  deleteImage
 }
