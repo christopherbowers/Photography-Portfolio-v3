@@ -27,13 +27,24 @@ This site is a basic web app for building a basic portfolio site with projects a
 
 ## How to Get Started
 
+### Deployed site on Heroku
+
+<https://bowers-portfolio.herokuapp.com/>
+
 ### Run locally
+
+#### Run backend
 
 ```
 $ git@github.com:christopherbowers/portfolio_builder.git
 $ cd portfolio_builder
 $ npm i
 $ npm start
+```
+
+#### Run frontend
+
+```
 $ cd client
 $ npm i
 $ npm start
