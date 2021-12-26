@@ -13,7 +13,7 @@ import Login from './components/Login'
 function App() {
   const navigate = useNavigate()
   
-  const [isLoggedIn, toggleLogin] = useState(false) // Set to false to disable by default
+  const [isLoggedIn, toggleLogin] = useState(true) // Set to false to disable by default
   const handleLoginClick = () => toggleLogin(true)
   const handleLogoutClick = () => toggleLogin(false)
 
