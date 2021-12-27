@@ -8,12 +8,11 @@ import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
 import DashBoard from './components/DashBoard'
 import Footer from './components/Footer'
-import Login from './components/Login'
 
 function App() {
   const navigate = useNavigate()
   
-  const [isLoggedIn, toggleLogin] = useState(true) // Set to false to disable by default
+  const [isLoggedIn, toggleLogin] = useState(false) // Set to false to disable by default
   const handleLoginClick = () => toggleLogin(true)
   const handleLogoutClick = () => toggleLogin(false)
 
@@ -91,18 +90,13 @@ function App() {
             handleSubmitImage={ handleSubmitImage }
             /> }
           />
-          
-          <Route path="/login"
-              element={ <Login
-              isLoggedIn={ isLoggedIn }
-              handleLogoutClick={ handleLogoutClick }
-              handleLoginClick={ handleLoginClick } 
-            /> }
-          />
-
         </Routes>
 
-      <Footer />
+      <Footer
+        isLoggedIn={ isLoggedIn }
+        handleLogoutClick={ handleLogoutClick }
+        handleLoginClick={ handleLoginClick } 
+      />
 
     </div>
   );
