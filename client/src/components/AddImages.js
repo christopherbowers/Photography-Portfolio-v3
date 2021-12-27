@@ -4,12 +4,10 @@ import axios from 'axios'
 
 export default function AddImages(props) {
 
-//   console.log(props)
-
   const {slug} = useParams()
   let navigate = useNavigate()
 
-  const postImage = async ({image}) => {
+  async function postImage({image}) {
     const formData = new FormData();
     formData.append("image", image)
   
@@ -36,13 +34,7 @@ export default function AddImages(props) {
         image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-'),
         project_id: slug
     })
-    
-    setTimeout(function(){
-      props.getImages()
-      navigate(`/`)
-      console.log('refeshed')
-    }, 10)
-    
+      props.getProject()
   }
 
 
@@ -55,14 +47,10 @@ export default function AddImages(props) {
   
   const submitUpdateProject = async (e) => {
     e.preventDefault()
-    
-    axios.post(`/api/projects/${slug}`, {
+    axios.put(`/api/projects/${slug}`, {
       title: e.target.title.value
     })
-    .then(() => {
-    props.getProjects()
-    navigate(`/projects/${slug}`)
-    })
+    props.getProject()
   }
   
   const isLoggedIn = props.isLoggedIn
