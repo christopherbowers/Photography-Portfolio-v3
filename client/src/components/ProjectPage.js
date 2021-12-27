@@ -9,13 +9,18 @@ const ProjectPage = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [project, setProject] = useState({})
   
-  useEffect(() => {
-    axios.get('/api/projects/' + slug ).then(res => {
+  const getProject = () => {
+    axios.get(`/api/projects/${slug}`)
+    .then(res => {
       setProject(res.data.project)
       document.title = res.data.project.title
       setLoading(false)
     })
-  }, [slug])
+  }
+    
+  useEffect(() => {
+    getProject()
+  }, [])
   
 if (isLoading) {
   return <div className="spinner"></div>
@@ -24,7 +29,7 @@ if (isLoading) {
 return (
   
     <div className="project-container">
-    <AddImages props {...props}/>
+    <AddImages props {...props} getProject={ getProject } />
     <h2>{project.title}</h2>
       
       { 
