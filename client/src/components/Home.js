@@ -1,8 +1,5 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-// import Nav from './Nav'
-// import ProjectHome from './ProjectHome'
-// import ProjectPage from './ProjectPage'
 
 export default function Home(props) {
 
