@@ -62,6 +62,7 @@ function App() {
   return (
     <div className="App">
       <Header isLoggedIn={ isLoggedIn } />
+      <div className="project-flex-container">
       <Nav projects={ projects }/>
         <Routes>
         
@@ -78,6 +79,7 @@ function App() {
             /> }
           />
         </Routes>
+</div>
 
       <Footer
         isLoggedIn={ isLoggedIn }

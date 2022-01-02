@@ -10,14 +10,14 @@ export default function Home(props) {
 
   return (
       
-    <div className="project-flex-container">
+    
       <div className="splash-image">
         { 
           props.images.length && 
           <img src={ props.images[randomImageIndex].image_url } alt="" /> 
         }
       </div>
-    </div>
+    
     
   )
 }

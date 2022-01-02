@@ -7,7 +7,7 @@ import AddImages from './AddImages'
 const ProjectPage = (props) => {
   const { slug } = useParams()
   
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true)
   const [project, setProject] = useState({})
   
   const getProject = () => {
@@ -21,8 +21,7 @@ const ProjectPage = (props) => {
     
   useEffect(() => {
     getProject()
-  }, )
-
+  }, [slug])
 
 if (isLoading) {
   return <div className="spinner"></div>
@@ -32,9 +31,9 @@ return (
   
     <div className="project-container">
     <AddImages props {...props} getProject={ getProject } />
-    <h2>{project.title}</h2>
+    <h2 className="project-title">{project.title}</h2>
       
-      { 
+      {
         project.image.map((image, index) => (
         <LazyLoad key={index} height={500} >
         <div className="image-container" >

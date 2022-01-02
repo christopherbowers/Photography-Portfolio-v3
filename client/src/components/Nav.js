@@ -4,7 +4,7 @@ export default function Nav(props) {
   return (
     
       <div className="side-nav">
-        <h2>Projects:</h2>
+        <h3>Projects:</h3>
         <ul>
           {
             props.projects.map((project) => (
@@ -15,6 +15,6 @@ export default function Nav(props) {
           }
         </ul>
       </div>
-    
+
   )
 }
