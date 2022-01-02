@@ -8,6 +8,7 @@ import Home from './components/Home'
 import ProjectPage from './components/ProjectPage'
 import DashBoard from './components/DashBoard'
 import Footer from './components/Footer'
+import Nav from './components/Nav'
 
 function App() {
   const navigate = useNavigate()
@@ -58,28 +59,16 @@ function App() {
       })
   }
 
-  
-  const handleSubmitImage = async (e) => {
-    e.preventDefault()
-    await axios
-      .put(`/api/projects/${inputValue.title}`, {
-        image_title: inputValue.image_title,
-        year: inputValue.year        
-      })
-      .then(() => {
-        getProjects()
-      })
-  }
-
   return (
     <div className="App">
       <Header isLoggedIn={ isLoggedIn } />
- 
+      <div className="project-flex-container">
+      <Nav projects={ projects }/>
         <Routes>
         
           <Route path="/" element={ <Home projects={ projects } images={ images } /> } />
 
-          <Route path="/projects/:slug" element={ <ProjectPage getProjects={ getProjects } getImages={ getImages } isLoggedIn= { isLoggedIn }/> } />
+          <Route path="/projects/:slug" element={ <ProjectPage isLoggedIn= { isLoggedIn }/> } />
           
           <Route path="/dashboard" 
             element={ <DashBoard 
@@ -87,10 +76,10 @@ function App() {
             inputValue={ inputValue }
             handleChange={ handleChange }
             handleSubmitProject={ handleSubmitProject }
-            handleSubmitImage={ handleSubmitImage }
             /> }
           />
         </Routes>
+</div>
 
       <Footer
         isLoggedIn={ isLoggedIn }

@@ -78,6 +78,7 @@ header a {
 .side-nav {
   font-size: 26px;
   padding: 20px;
+  flex: 0 0 250px;
 }
 
 .side-nav li {
@@ -98,6 +99,10 @@ header a {
   color: #999;
 }
 
+.side-nav h3 {
+  font-size: 26px;
+  margin: 0 0 -20px 0;
+}
 
 .splash-image {
   padding: 55px 0 0 0px;
@@ -145,8 +150,10 @@ header a {
   100% {opacity:1;}
 }
 
-.project-title {
-  font-size: 14px;
+h2.project-title {
+  font-size: 28px;
+  margin: 0;
+  padding: 20px;
 }
 
 .dashboard-container {

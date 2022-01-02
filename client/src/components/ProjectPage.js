@@ -7,7 +7,7 @@ import AddImages from './AddImages'
 const ProjectPage = (props) => {
   const { slug } = useParams()
   
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true)
   const [project, setProject] = useState({})
   
   const getProject = () => {
@@ -21,10 +21,8 @@ const ProjectPage = (props) => {
     
   useEffect(() => {
     getProject()
-    
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [slug])
 
-  
 if (isLoading) {
   return <div className="spinner"></div>
 }
@@ -33,15 +31,15 @@ return (
   
     <div className="project-container">
     <AddImages props {...props} getProject={ getProject } />
-    <h2>{project.title}</h2>
+    <h2 className="project-title">{project.title}</h2>
       
-      { 
+      {
         project.image.map((image, index) => (
-        <LazyLoad key={index} height={500} >
-        <div className="image-container" >
-          <img src={image.image_url} alt={image.image_title} className="image" />
-          <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
-        </div>
+        <LazyLoad key={index} height={500} offset={100}>
+          <div className="image-container" >
+            <img src={image.image_url} alt={image.image_title} className="image" />
+            <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
+          </div>
         </LazyLoad>
         ))
       }
