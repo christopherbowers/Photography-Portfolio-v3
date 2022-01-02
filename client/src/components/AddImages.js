@@ -24,7 +24,6 @@ export default function AddImages(props) {
 
   const submit = async (e) => {
     e.preventDefault()
-    // const result = 
     await postImage({image: file})
     
     await axios

@@ -35,11 +35,11 @@ return (
       
       {
         project.image.map((image, index) => (
-        <LazyLoad key={index} height={500} >
-        <div className="image-container" >
-          <img src={image.image_url} alt={image.image_title} className="image" />
-          <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
-        </div>
+        <LazyLoad key={index} height={500} offset={100}>
+          <div className="image-container" >
+            <img src={image.image_url} alt={image.image_title} className="image" />
+            <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
+          </div>
         </LazyLoad>
         ))
       }
