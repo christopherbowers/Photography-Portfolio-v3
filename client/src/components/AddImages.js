@@ -16,7 +16,6 @@ export default function AddImages(props) {
   }
 
   const [file, setFile] = useState()
-  const [images, setImages] = useState([])
 
   const fileSelected = event => {
     const file = event.target.files[0]
@@ -25,7 +24,7 @@ export default function AddImages(props) {
 
   const submit = async (e) => {
     e.preventDefault()
-    const result = await postImage({image: file})
+    await postImage({image: file})
     
     await axios
       .post(`/api/images`, {
