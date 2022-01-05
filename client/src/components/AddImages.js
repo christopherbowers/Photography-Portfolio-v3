@@ -10,7 +10,7 @@ export default function AddImages(props) {
   async function postImage({image}) {
     const formData = new FormData();
     formData.append("image", image)
-  
+
     const result = await axios.post('/upload', formData, { headers: {'Content-Type': 'multipart/form-data'}})
     return result.data
   }
@@ -25,12 +25,12 @@ export default function AddImages(props) {
   const submit = async (e) => {
     e.preventDefault()
     await postImage({image: file})
-    
+
     await axios
       .post(`/api/images`, {
         image_title: e.target.title.value,
-        year: e.target.year.value,  
-        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-'),
+        year: e.target.year.value,
+        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-').toLowerCase(),
         project_id: slug
     })
       props.getProject()
@@ -43,7 +43,7 @@ export default function AddImages(props) {
     props.getProjects()
     navigate("/")
   }
-  
+
   const submitUpdateProject = async (e) => {
     e.preventDefault()
     axios.put(`/api/projects/${slug}`, {
@@ -51,14 +51,14 @@ export default function AddImages(props) {
     })
     props.getProject()
   }
-  
+
   const isLoggedIn = props.isLoggedIn
-  
-  
+
+
   if (isLoggedIn) {
 
   return (
-  
+
     <div className="form-container">
 
       <form onSubmit={ submit } >
@@ -78,11 +78,11 @@ export default function AddImages(props) {
         <button type="submit">Update</button>
       </form>
     </div>
-    
+
   )
 }
 
  return (
     <div></div>
   )
-} 
+}
