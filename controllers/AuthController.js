@@ -53,7 +53,7 @@ const checkSession = asyncHandler(async (req, res) => {
     res.status(401)
     throw new Error('User not found')
   } else {
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       data: {
         id: user._id,
