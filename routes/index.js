@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const controllers = require('../controllers')
-const router = Router();
+const router = Router()
 
 router.get('/projects', controllers.getAllProjects)
 router.get('/projects/:id', controllers.getProject)
@@ -14,8 +14,4 @@ router.put('/projects/:id', controllers.updateProject)
 router.post('/projects/', controllers.createProject)
 router.post('/images/', controllers.addImage)
 
-
-
-
-
-module.exports = router;
+module.exports = router

@@ -1,19 +1,8 @@
-# Portfolio Builder
+# Portfolio Site for Christopher Bowers
 ## A full MERN stack application
 By: Christopher Bowers
 
-[LinkedIn](https://linkedin.com/in/christopher-bowers-dev) | [Twitter](https://twitter.com/chrisipedia) | [Trello Board](https://trello.com/b/uo3BYHui)
-
-### ERD
-![](assets/ERD.png)
-
-### React Component Diagram
-![](assets/Component_Diagram.png)
-
-
-## Description
-
-This site is a basic web app for building a basic portfolio site with projects and images.
+[LinkedIn](https://linkedin.com/in/christopher-bowers-dev) | [Twitter](https://twitter.com/chrisipedia)
 
 ## Technology Stack
 
@@ -34,7 +23,7 @@ This site is a basic web app for building a basic portfolio site with projects a
 ### Clone the project
 
 ```bash
-git@github.com:christopherbowers/portfolio_builder.git
+git@github.com:christopherbowers/Photography-Portfolio-v3.git
 ```
 
 ### Install dependencies
