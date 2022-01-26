@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
 import axios from 'axios'
-import AddImages from './AddImages'
 
 const ProjectPage = (props) => {
   const { slug } = useParams()
-  
+
   const [isLoading, setLoading] = useState(true)
   const [project, setProject] = useState({})
-  
+
   const getProject = () => {
     axios.get(`/api/projects/${slug}`)
     .then(res => {
@@ -18,7 +17,7 @@ const ProjectPage = (props) => {
       setLoading(false)
     })
   }
-    
+
   useEffect(() => {
     getProject()
   }, [slug])
@@ -28,14 +27,13 @@ if (isLoading) {
 }
 
 return (
-  
+
     <div className="project-container">
-    <AddImages props {...props} getProject={ getProject } />
     <h2 className="project-title">{project.title}</h2>
-      
+
       {
         project.image.map((image, index) => (
-        <LazyLoad key={index} height={500} offset={100}>
+        <LazyLoad key={index} height={1000} >
           <div className="image-container" >
             <img src={image.image_url} alt={image.image_title} className="image" />
             <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
@@ -43,10 +41,10 @@ return (
         </LazyLoad>
         ))
       }
-      
-    </div>   
-  
-  
+
+    </div>
+
+
   )
 }
 

@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 
-const getMe = asyncHandler(async (req, res) => {
+const checkSession = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
 
   if (!user) {
@@ -67,5 +67,5 @@ const getMe = asyncHandler(async (req, res) => {
 module.exports = {
   registerUser,
   loginUser,
-  getMe
+  checkSession
 }
