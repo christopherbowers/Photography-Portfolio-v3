@@ -5,6 +5,11 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
 
+const {
+  notFound,
+  errorHandler
+} = require('./middleware/ErrorHandler.js')
+const AuthRoutes = require('./routes/AuthRoutes.js')
 
 const multer = require('multer')
 const slugify = require('slugify')
@@ -42,7 +47,7 @@ app.use(cors())
 
 // Send files to S3
 app.post('/upload', upload.single('image'), async (req, res) => {
-  
+
   const file = req.file
   console.log(file)
 
@@ -50,7 +55,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
   await unlinkFile(file.path)
   console.log(result)
   res.send({imagePath: `/images/${result.Key}`})
-  
+
 })
 
 // Get files from S3
@@ -63,6 +68,8 @@ app.get('/images/:key', (req, res) => {
 })
 
 app.use('/api', routes)
+app.use('/api/auth', AuthRoutes)
+
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'))
 
