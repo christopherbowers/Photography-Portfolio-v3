@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ProjectPage from './pages/ProjectPage'
+import Login from './pages/Login'
 
 // import DashBoard from './pages/DashBoard'
 const DashBoard = lazy(() => import('./pages/DashBoard'))
@@ -29,7 +30,7 @@ function App() {
 
 
   const showNav = () => {
-    if (window.location.pathname === '/dashboard') {
+    if (window.location.pathname === '/dashboard'  || window.location.pathname === '/login') {
       return null
     } else {
      return ( <Nav projects={ projects }/> )
@@ -37,7 +38,7 @@ function App() {
   }
 
   const showHeader = () => {
-    if (window.location.pathname === '/dashboard') {
+    if (window.location.pathname === '/dashboard' || window.location.pathname === '/login') {
       return null
     } else {
      return ( <Header /> )
@@ -53,7 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={ <Home /> } />
           <Route path="/projects/:slug" element={ <ProjectPage /> }/>
-
+          <Route path="/login" element={ <Login /> }/>
             <Route path="/dashboard" element={ <DashBoard /> }>
             </Route>
         </Routes>
