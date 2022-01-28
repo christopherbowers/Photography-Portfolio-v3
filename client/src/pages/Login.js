@@ -24,7 +24,6 @@ export default function Login() {
       localStorage.setItem('userInfo', JSON.stringify(data.data))
       navigate('/dashboard')
     } catch (error) {
-      console.log(error.response.data)
       setError(error.response.data.message)
     }
   }

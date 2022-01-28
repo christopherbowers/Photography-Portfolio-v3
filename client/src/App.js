@@ -7,10 +7,10 @@ import Home from './pages/Home'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ProjectPage from './pages/ProjectPage'
-import Login from './pages/Login'
+import LayoutsWithNavbar from './components/LayoutsWithNavbar'
 
-// import DashBoard from './pages/DashBoard'
-const DashBoard = lazy(() => import('./pages/DashBoard'))
+const Login = lazy(() => import ('./pages/Login'))
+const Dashboard = lazy(() => import ('./pages/Dashboard'))
 
 function App() {
   // eslint-disable-next-line
@@ -47,23 +47,21 @@ function App() {
 
   return (
     <div className="App">
-      { showHeader() }
-      <div className="project-flex-container">
-      { showNav() }
-        <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={ <Home /> } />
-          <Route path="/projects/:slug" element={ <ProjectPage /> }/>
+        <Suspense fallback={<>loading...</>}>
+          <Routes>
+
+          <Route path="/" element={ <LayoutsWithNavbar projects={ projects } /> }>
+              <Route path="/" element={ <Home /> } />
+              <Route path="/projects/:slug" element={ <ProjectPage /> }/>
+          </Route>
+
           <Route path="/login" element={ <Login /> }/>
-            <Route path="/dashboard" element={ <DashBoard /> }>
-            </Route>
-        </Routes>
+          <Route path="/dashboard" element={ <Dashboard /> } />
+
+          </Routes>
         </Suspense>
     </div>
 
-      <Footer />
-
-    </div>
   );
 }
 

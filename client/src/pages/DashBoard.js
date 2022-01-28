@@ -24,7 +24,6 @@ export default function DashBoard() {
       setUserData(data.data)
       setLoading(false)
     } catch (error) {
-      console.log(error.response.data)
       navigate('/login')
     }
   }

@@ -1,5 +1,5 @@
 export default function AddProject(props) {
-  
+
   return (
     <div className="form-container">
       <form onSubmit={ props.handleSubmitProject } >

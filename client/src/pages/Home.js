@@ -17,7 +17,6 @@ export default function Home(props) {
     })
   }
 
-  // console.log(images)
 
    useEffect(() => {
      getImages()
