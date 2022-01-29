@@ -6,6 +6,8 @@ const Home = lazy(() => import('./pages/Home'))
 const LayoutsWithNavbar = lazy(() => import('./components/LayoutsWithNavbar'))
 const Login = lazy(() => import('./pages/Login'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
+const AddProject = lazy(() => import('./components/AddProject'))
+const LayoutsWithDashboardNav = lazy(() => import('./components/LayoutsWithDashboardNav'))
 
 export default function App() {
   return (
@@ -17,7 +19,11 @@ export default function App() {
             <Route path="/projects/:slug" element={ <ProjectPage /> }/>
           </Route>
           <Route path="/login" element={ <Login /> }/>
-          <Route path="/dashboard" element={ <Dashboard /> } />
+
+          <Route path="/dashboard" element={ <LayoutsWithDashboardNav /> }>
+            <Route path="/dashboard" element={ <Dashboard /> } />
+            <Route path="addproject" element={ <AddProject /> } />
+          </Route>
         </Routes>
       </Suspense>
     </div>

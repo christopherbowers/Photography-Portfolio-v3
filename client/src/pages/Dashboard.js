@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import AddProject from '../components/AddProject'
+import DashboardNav from '../components/DashboardNav'
 
 export default function DashBoard() {
 
@@ -42,9 +43,8 @@ export default function DashBoard() {
   }
   return (
     <>
-    <button onClick={logout}>Logout</button>
     <div>
-      <AddProject />
+      <h1>Dashboard</h1>
     </div>
     </>
   )
