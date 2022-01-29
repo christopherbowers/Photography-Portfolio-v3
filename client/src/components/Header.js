@@ -8,8 +8,6 @@ const userInfo = localStorage.getItem('userInfo')
 ? JSON.parse(localStorage.getItem('userInfo'))
 : ''
 
-
-
   return (
     <header>
       <h1>

@@ -17,7 +17,6 @@ export default function Home(props) {
     })
   }
 
-
    useEffect(() => {
      getImages()
      document.title = 'Portfolio | Home'
@@ -29,15 +28,8 @@ export default function Home(props) {
     return <div>loading...</div>
   }
   return (
-
-
       <div className="splash-image">
-
-
-          <img src={ images[randomImageIndex].image_url } alt="" />
-
+        <img src={ images[randomImageIndex].image_url } alt="" />
       </div>
-
-
   )
 }

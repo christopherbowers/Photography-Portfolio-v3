@@ -6,18 +6,16 @@ export default function Nav() {
 
   const [projects, setProjects] = useState([])
 
-    const getProjects = async () => {
-      const res = await axios.get('/api/projects')
-      setProjects(res.data.projects)
-    }
+  const getProjects = async () => {
+    const res = await axios.get('/api/projects')
+    setProjects(res.data.projects)
+  }
 
-    useEffect(() => {
-      getProjects()
-    }, [])
-
+  useEffect(() => {
+    getProjects()
+  }, [])
 
   return (
-
       <div className="side-nav">
         <h3>Projects:</h3>
         <ul>
@@ -32,6 +30,5 @@ export default function Nav() {
           }
         </ul>
       </div>
-
   )
 }

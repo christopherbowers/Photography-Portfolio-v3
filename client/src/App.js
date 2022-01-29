@@ -1,19 +1,13 @@
-import { useState, useEffect, Suspense, lazy } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { Suspense, lazy } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Home from './pages/Home'
-import ProjectPage from './pages/ProjectPage'
-
+const ProjectPage = lazy(() => import('./pages/ProjectPage'))
+const Home = lazy(() => import('./pages/Home'))
 const LayoutsWithNavbar = lazy(() => import('./components/LayoutsWithNavbar'))
-
 const Login = lazy(() => import('./pages/Login'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 
-function App() {
-  // eslint-disable-next-line
-  const navigate = useNavigate()
-
+export default function App() {
   return (
     <div className="App">
       <Suspense fallback={<>loading...</>}>
@@ -27,7 +21,5 @@ function App() {
         </Routes>
       </Suspense>
     </div>
-  );
+  )
 }
-
-export default App;
