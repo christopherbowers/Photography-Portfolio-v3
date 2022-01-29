@@ -1,25 +1,4 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import slugify from 'slugify'
-
-export default function AddProject() {
-  const navigate = useNavigate()
-  const [projectTitle, setProjectTitle] = useState('')
-
-  const handleSubmitProject = async (e) => {
-    e.preventDefault()
-    await axios
-      .post(`/api/projects`, {
-        title: projectTitle,
-        slug: slugify(projectTitle).toLowerCase()
-      })
-      .then(() => {
-        setProjectTitle('')
-        alert('Project Added')
-        // navigate("/dashboard")
-      }).catch(error => error.message)
-  }
+export default function AddProject(props) {
 
   return (
     <div className="form-container">
