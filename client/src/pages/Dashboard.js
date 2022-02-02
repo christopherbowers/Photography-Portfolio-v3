@@ -43,6 +43,7 @@ export default function DashBoard() {
   }
   return (
     <>
+    <button onClick={logout}>Logout</button>
     <div>
       <h1>Dashboard</h1>
     </div>
