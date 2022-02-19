@@ -1,10 +1,10 @@
-export default function DeleteProject(props) {
-  
+export default function DeleteProject() {
+
   return (
     <div className="form-container">
-      <form onSubmit={ props.handleSubmitDeleteProject } >
+      <form onSubmit={ handleSubmit } >
         <label>Delete Project: </label>
-        <select onChange={ props.handleChange } name="title">
+        <select name="title">
           <option>Select Project:</option>
           {
             props.projects.map((project) => (
