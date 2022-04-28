@@ -8,8 +8,8 @@ export default function LayoutsWithNavbar(props) {
     <>
       <Header />
       <Nav {...props} />
-        <Outlet />
+      <Outlet />
       <Footer />
     </>
-  );
+  )
 }

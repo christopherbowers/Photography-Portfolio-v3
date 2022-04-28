@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import AddProject from '../components/AddProject'
-import DashboardNav from '../components/DashboardNav'
 
 export default function DashBoard() {
 
@@ -25,7 +23,7 @@ export default function DashBoard() {
       setUserData(data.data)
       setLoading(false)
     } catch (error) {
-      navigate('/login')
+      // navigate('/login')
     }
   }
 
