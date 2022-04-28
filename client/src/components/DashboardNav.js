@@ -5,7 +5,7 @@ export default function DashboardNav() {
       <div>
         <ul>
           <li><Link to="/dashboard">Dashboard</Link></li>
-          <li><Link to="/dashboard/addproject">Add Project</Link></li>
+          <li><Link to="/dashboard/projects">Manage Projects</Link></li>
         </ul>
       </div>
   )
