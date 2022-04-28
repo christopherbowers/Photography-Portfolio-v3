@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import slugify from 'slugify'
 
 export default function AddProject() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [projectTitle, setProjectTitle] = useState('')
 
   const handleSubmitProject = async (e) => {
