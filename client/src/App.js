@@ -1,94 +1,32 @@
-import { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import slugify from 'react-slugify'
+import { Suspense, lazy } from 'react'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Header from './components/Header'
-import Home from './components/Home'
-import ProjectPage from './components/ProjectPage'
-import DashBoard from './components/DashBoard'
-import Footer from './components/Footer'
-import Nav from './components/Nav'
+import Loading from './components/Loading'
+const ProjectPage = lazy(() => import('./pages/ProjectPage'))
+const Home = lazy(() => import('./pages/Home'))
+const LayoutWithNavbar = lazy(() => import('./layouts/LayoutWithNavbar'))
+const LayoutWithDashboardNav = lazy(() => import('./layouts/LayoutWithDashboardNav'))
+const Login = lazy(() => import('./pages/Login'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
+const AddProject = lazy(() => import('./components/AddProject'))
+const ManageProjects = lazy(() => import('./components/ManageProjects'))
 
-function App() {
-  const navigate = useNavigate()
-  
-  const [isLoggedIn, toggleLogin] = useState(false) // Set to false to disable by default
-  const handleLoginClick = () => toggleLogin(true)
-  const handleLogoutClick = () => toggleLogin(false)
-
-  
-  const [projects, setProjects] = useState([])
-  const [images, setImages] = useState([])
-
-  const getProjects = async () => {
-    const res = await axios.get('/api/projects')
-    setProjects(res.data.projects)
-    document.title = 'Christopher Bowers'
-  }
-  
-  const getImages = async () => {
-    const res = await axios.get('/api/images')
-    setImages(res.data.images)
-  }
-  
-  useEffect(() => {
-    getProjects()
-    getImages()
-  }, [])
-
-  
-  const [inputValue, setInputValue] = useState({})
-
-
-  const handleChange = (e) => {
-    setInputValue({ ...inputValue, [e.target.name]: e.target.value })
-  }
-  
-  
-  const handleSubmitProject = async (e) => {
-    e.preventDefault()
-    await axios
-      .post(`/api/projects`, {
-        title: inputValue.title,
-        slug: slugify(inputValue.title)
-      })
-      .then(() => {
-        getProjects()
-        navigate("/")
-      })
-  }
-
+export default function App() {
   return (
-    <div className="App">
-      <Header isLoggedIn={ isLoggedIn } />
-      <div className="project-flex-container">
-      <Nav projects={ projects }/>
+      <Suspense fallback={<Loading />}>
         <Routes>
-        
-          <Route path="/" element={ <Home projects={ projects } images={ images } /> } />
+          <Route path='/' element={<LayoutWithNavbar />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/projects/:slug' element={<ProjectPage />} />
+          </Route>
+          <Route path='/login' element={<Login />} />
 
-          <Route path="/projects/:slug" element={ <ProjectPage isLoggedIn= { isLoggedIn }/> } />
-          
-          <Route path="/dashboard" 
-            element={ <DashBoard 
-            projects={ projects }
-            inputValue={ inputValue }
-            handleChange={ handleChange }
-            handleSubmitProject={ handleSubmitProject }
-            /> }
-          />
+          <Route path='/dashboard' element={<LayoutWithDashboardNav />}>
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='addproject' element={<AddProject />} />
+            <Route path='projects' element={<ManageProjects />} />
+          </Route>
         </Routes>
-</div>
-
-      <Footer
-        isLoggedIn={ isLoggedIn }
-        handleLogoutClick={ handleLogoutClick }
-        handleLoginClick={ handleLoginClick } 
-      />
-
-    </div>
-  );
+      </Suspense>
+  )
 }
-
-export default App;

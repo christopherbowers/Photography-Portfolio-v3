@@ -1,20 +1,35 @@
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import styles from './Nav.module.scss'
 
-export default function Nav(props) {
+export default function Nav() {
+
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const getProjects = async () => {
+      await axios
+        .get('/api/projects')
+        .then(res => {
+          setProjects(res.data.projects)
+        })
+        .catch(err => console.error(err))
+    }
+    getProjects()
+  }, [])
+
   return (
-    
-      <div className="side-nav">
-        <h3>Projects:</h3>
+      <nav className={styles.nav}>
         <ul>
-          {
-            props.projects.map((project) => (
-              <li key={ project._id } className="project-title">
-                <NavLink  to={( `/projects/${ project._id }` )} >{ project.title }</NavLink>
+          {projects.map((project) => (
+              <li key={ project._id } className={styles.projectTitle}>
+                <NavLink  to={( `/projects/${ project._id }` )} >
+                  { project.title }
+                </NavLink>
               </li>
-            ))
-          }
+            ))}
         </ul>
-      </div>
-
+      </nav>
   )
 }
