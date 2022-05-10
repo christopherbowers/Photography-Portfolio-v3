@@ -20,16 +20,16 @@ export default function Nav() {
   }, [])
 
   return (
-      <div className={styles.nav}>
+      <nav className={styles.nav}>
         <ul>
           {projects.map((project) => (
-              <li key={ project._id } className="project-title">
+              <li key={ project._id } className={styles.projectTitle}>
                 <NavLink  to={( `/projects/${ project._id }` )} >
                   { project.title }
                 </NavLink>
               </li>
             ))}
         </ul>
-      </div>
+      </nav>
   )
 }

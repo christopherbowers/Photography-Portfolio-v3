@@ -13,7 +13,6 @@ const ManageProjects = lazy(() => import('./components/ManageProjects'))
 
 export default function App() {
   return (
-    <div className='App'>
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path='/' element={<LayoutWithNavbar />}>
@@ -29,6 +28,5 @@ export default function App() {
           </Route>
         </Routes>
       </Suspense>
-    </div>
   )
 }

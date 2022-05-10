@@ -2,7 +2,6 @@
   padding: 0px;
   background: #8ac;
   flex-shrink: 0;
-  // flex: 0 0 250px;
 
   ul {
     margin: 0;
@@ -12,13 +11,16 @@
   li {
     list-style-type: none;
     text-align: left;
+    line-height: 1.5;
   }
 
   a {
     color: #000;
 
     &:hover {
-      color: #999;
+      text-decoration: underline;
+      text-decoration-thickness: from-font;
+      text-decoration-thickness: 2px;
     }
   }
 }

@@ -1,88 +1,12 @@
-/* html {display: flex;} */
 .App {
-/*   text-align: center; */
 padding: 0;
 margin: 0 auto;
 }
 
-header {
-  background-color: #000;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  width: 100%;
-  top: 0;
-  padding: 0 0 15px 0;
- }
-
-header > h1 {
-  font-size: 20px;
-  margin: 0;
-  padding: 15px 5px 5px 20px;
-  color: #ddd;
-}
-
-header > div {
-  padding-right: 20px;
-}
-
-header a {
-  color: #fff;
-}
-
- a {
+a {
   text-decoration: none;
-  }
-
-
-.project-flex-container {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 20px;
 }
 
-.project-flex-container > a {
-  text-decoration: none;
-  width: 150px;
-}
-
-.project-container {
-  height: 100%;
-  padding: 0;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-}
-
-.image-container,
-.image-container > img {
-  width: calc(100vw - 100px);
-  max-width: 600px;
-  border-radius: 3px;
-}
-
-.image-container p {
-  font-size: 13px;
-  margin: 0 0 50px 0;
-}
-
-.image-container img {
-  animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
-}
-
-h2.project-title {
-  font-size: 28px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-}
 
 .dashboard-container {
   display: flex;
