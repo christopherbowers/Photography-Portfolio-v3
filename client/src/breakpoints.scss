@@ -10,7 +10,7 @@ $xl: 1312px;
   @media (min-width: $sm) { @content; }
 }
 @mixin for-tablet-portrait-down {
-  @media (max-width: $md) { @content; }
+  @media (max-width: $sm) { @content; }
 }
 @mixin for-tablet-landscape-up {
   @media (min-width: $md) { @content; }
