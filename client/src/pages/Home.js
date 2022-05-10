@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import styles from './Home.module.scss'
+import Loading from '../components/Loading'
 
 export default function Home() {
 
@@ -22,12 +24,9 @@ export default function Home() {
 
   const randomImageIndex = Math.floor(Math.random() * images.length)
 
-  if (loading) {
-    return <div>loading...</div>
-  }
   return (
-    <div className="splash-image">
-      <img src={ images[randomImageIndex].image_url } alt="" />
+    <div className={styles.splashImage}>
+      {loading ? <Loading /> : <img src={ images[randomImageIndex].image_url } alt="" />}
     </div>
   )
 }

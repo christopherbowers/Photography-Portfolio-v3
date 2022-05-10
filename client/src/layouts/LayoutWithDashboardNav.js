@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
-import DashboardNav from './DashboardNav'
+import DashboardNav from '../components/DashboardNav'
 
-export default function LayoutsWithDashboardNav() {
+export default function LayoutWithDashboardNav() {
 
   return (
     <>

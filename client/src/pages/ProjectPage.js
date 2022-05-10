@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
 import axios from 'axios'
+import Loading from '../components/Loading'
+import styles from './ProjectPage.module.scss'
 
-const ProjectPage = (props) => {
+const ProjectPage = () => {
   const { slug } = useParams()
 
-  const [isLoading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [project, setProject] = useState({})
 
   const getProject = () => {
@@ -22,29 +24,22 @@ const ProjectPage = (props) => {
     getProject()
   }, [slug])
 
-if (isLoading) {
-  return <div className="spinner"></div>
+if (loading) {
+  return
 }
 
 return (
-
-    <div className="project-container">
-    <h2 className="project-title">{project.title}</h2>
-
-      {
-        project.image.map((image, index) => (
-        <LazyLoad key={index} height={1000} >
-          <div className="image-container" >
-            <img src={image.image_url} alt={image.image_title} className="image" />
-            <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
-          </div>
-        </LazyLoad>
-        ))
-      }
-
+    <div className={styles.projectContainer}>
+      <h2 className={styles.projectTitle}>{project.title}</h2>
+        {project ? project.image.map((image, index) => (
+          <LazyLoad key={index} height={1000} >
+            <div className={styles.imageContainer} >
+              <img src={image.image_url} alt={image.image_title} className={styles.image} />
+              <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
+            </div>
+          </LazyLoad>
+        )) : null}
     </div>
-
-
   )
 }
 
