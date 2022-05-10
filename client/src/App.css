@@ -5,35 +5,6 @@ padding: 0;
 margin: 0 auto;
 }
 
-
-/* Loading Spinner */
-.spinner {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}
-
-.spinner:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: spinner 1.2s linear infinite;
-}
-
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 header {
   background-color: #000;
   display: flex;
@@ -75,54 +46,10 @@ header a {
   width: 150px;
 }
 
-.side-nav {
-  font-size: 26px;
-  padding: 20px;
-  flex: 0 0 250px;
-}
-
-.side-nav li {
-  list-style-type: none;
-  text-align: left;
-}
-
-.side-nav ul {
-  padding: 0;
-}
-
-.side-nav a {
-  color: #000;
-  font-size: 20px;
-}
-
-.side-nav a:hover {
-  color: #999;
-}
-
-.side-nav h3 {
-  font-size: 26px;
-  margin: 0 0 -20px 0;
-}
-
-.splash-image {
-  padding: 55px 0 0 0px;
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-  text-align: center;
-}
-
-.splash-image > img{
-  max-width: 600px;
-  display: flex;
-  justify-content: center;
-
-}
-
 .project-container {
   height: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,7 +80,8 @@ header a {
 h2.project-title {
   font-size: 28px;
   margin: 0;
-  padding: 20px;
+  padding: 20px 0;
+  text-align: center;
 }
 
 .dashboard-container {
@@ -210,22 +138,3 @@ form > button:hover {
   opacity: 0.5;
   border-radius: 10px;
 }
-
-footer {
-  margin-top: 80px;
-  font-size: 13px;
-  text-align: center;
-  color: #333;
-}
-
-footer a {
-  padding: 0 2px;
-  box-shadow: inset 0 -.2em #222;
-  transition: all .25s;
-}
-
-footer a:hover {
-  box-shadow: inset 0 -1.1em #ccc;
-}
-
-
