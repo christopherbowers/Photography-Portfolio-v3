@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import styles from './Nav.module.scss'
 
 export default function Nav() {
 
   const [projects, setProjects] = useState([])
-
 
   useEffect(() => {
     const getProjects = async () => {
@@ -20,17 +20,16 @@ export default function Nav() {
   }, [])
 
   return (
-      <div className="side-nav">
-        <h3>Projects:</h3>
+      <nav className={styles.nav}>
         <ul>
           {projects.map((project) => (
-              <li key={ project._id } className="project-title">
+              <li key={ project._id } className={styles.projectTitle}>
                 <NavLink  to={( `/projects/${ project._id }` )} >
                   { project.title }
                 </NavLink>
               </li>
             ))}
         </ul>
-      </div>
+      </nav>
   )
 }

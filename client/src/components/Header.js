@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import styles from './Header.module.scss'
 
 let name = 'Christopher Bowers'
 
@@ -9,7 +10,7 @@ const userInfo = localStorage.getItem('userInfo')
 : ''
 
   return (
-    <header>
+    <header className={styles.header}>
       <h1>
         <Link to="/">{ name }</Link>: Lens Based Media
       </h1>

@@ -1,10 +1,11 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
+import Loading from './components/Loading'
 const ProjectPage = lazy(() => import('./pages/ProjectPage'))
 const Home = lazy(() => import('./pages/Home'))
-const LayoutsWithNavbar = lazy(() => import('./components/LayoutsWithNavbar'))
-const LayoutsWithDashboardNav = lazy(() => import('./components/LayoutsWithDashboardNav'))
+const LayoutWithNavbar = lazy(() => import('./layouts/LayoutWithNavbar'))
+const LayoutWithDashboardNav = lazy(() => import('./layouts/LayoutWithDashboardNav'))
 const Login = lazy(() => import('./pages/Login'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const AddProject = lazy(() => import('./components/AddProject'))
@@ -12,22 +13,20 @@ const ManageProjects = lazy(() => import('./components/ManageProjects'))
 
 export default function App() {
   return (
-    <div className='App'>
-      <Suspense fallback={<>loading...</>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path='/' element={<LayoutsWithNavbar />}>
+          <Route path='/' element={<LayoutWithNavbar />}>
             <Route path='/' element={<Home />} />
             <Route path='/projects/:slug' element={<ProjectPage />} />
           </Route>
           <Route path='/login' element={<Login />} />
 
-          <Route path='/dashboard' element={<LayoutsWithDashboardNav />}>
+          <Route path='/dashboard' element={<LayoutWithDashboardNav />}>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='addproject' element={<AddProject />} />
             <Route path='projects' element={<ManageProjects />} />
           </Route>
         </Routes>
       </Suspense>
-    </div>
   )
 }
