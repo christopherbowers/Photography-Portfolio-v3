@@ -4,12 +4,16 @@ import LazyLoad from 'react-lazyload'
 import axios from 'axios'
 import Loading from '../components/Loading'
 import styles from './ProjectPage.module.scss'
+import AddImages from '../components/AddImages'
 
 const ProjectPage = () => {
   const { slug } = useParams()
 
   const [loading, setLoading] = useState(true)
   const [project, setProject] = useState({})
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : ''
 
   const getProject = () => {
     axios.get(`/api/projects/${slug}`)
@@ -25,11 +29,12 @@ const ProjectPage = () => {
   }, [slug])
 
 if (loading) {
-  return
+  return <Loading />
 }
 
 return (
     <div className={styles.projectContainer}>
+    {userInfo ? <AddImages /> : null}
       <h2 className={styles.projectTitle}>{project.title}</h2>
         {project ? project.image.map((image, index) => (
           <LazyLoad key={index} height={1000} >
