@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import './App.css'
+import styles from './App.module.scss'
 import Loading from './components/Loading'
 const ProjectPage = lazy(() => import('./pages/ProjectPage'))
 const Home = lazy(() => import('./pages/Home'))
