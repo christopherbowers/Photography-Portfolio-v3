@@ -25,7 +25,7 @@ const ProjectPage = () => {
   }, [slug])
 
 if (loading) {
-  return
+  return <Loading />
 }
 
 return (
