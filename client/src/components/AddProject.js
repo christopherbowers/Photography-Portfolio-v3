@@ -1,7 +1,6 @@
 import { useState } from 'react'
 // import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import slugify from 'slugify'
 
 export default function AddProject() {
   // const navigate = useNavigate()
@@ -12,7 +11,7 @@ export default function AddProject() {
     await axios
       .post(`/api/projects`, {
         title: projectTitle,
-        slug: slugify(projectTitle).toLowerCase()
+        slug: projectTitle.replaceAll(/[^0-9a-z\.]/g, '-').toLowerCase()
       })
       .then(() => {
         setProjectTitle('')

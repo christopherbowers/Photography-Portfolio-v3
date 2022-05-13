@@ -30,7 +30,7 @@ export default function AddImages(props) {
       .post(`/api/images`, {
         image_title: e.target.title.value,
         year: e.target.year.value,
-        image_url: '/images/' + (file.name).replaceAll(/[\s*+~()'"!:@]/g, '-').toLowerCase(),
+        image_url: '/images/' + (file.name).replaceAll(/[^0-9a-z\.]/g, '-').toLowerCase(),
         project_id: slug
     })
       props.getProject()

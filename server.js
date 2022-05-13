@@ -12,7 +12,6 @@ const {
 const AuthRoutes = require('./routes/AuthRoutes.js')
 
 const multer = require('multer')
-const slugify = require('slugify')
 const fs = require('fs')
 const util = require('util')
 const unlinkFile = util.promisify(fs.unlink)
@@ -24,7 +23,7 @@ let storage = multer.diskStorage(
   {
     destination: 'uploads/',
     filename: function ( req, file, cb ) {
-      cb( null, slugify(file.originalname, {remove: /[*+~()'"!:@]/g}).toLowerCase());
+      cb( null, file.originalname.replaceAll(/[^0-9a-z\.]/g, '-').toLowerCase());
     }
   }
 )
