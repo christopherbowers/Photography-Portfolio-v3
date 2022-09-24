@@ -8,7 +8,7 @@ const getAllProjects = async (req, res) => {
     const projects = await Project.find({})
     return res.status(200).json({ projects })
 //     .populate('image').exec()
-  } 
+  }
   catch (error) {
     return res.status(500).send(error.message)
   }
@@ -17,9 +17,9 @@ const getAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   try {
     const id = req.params.id
-    const project = await Project.findById(id).populate('image')
+    const project = await Project.findOne({slug: id}).populate('image')
     return res.status(200).json({ project })
-  } 
+  }
   catch (error) {
     return res.status(500).send(error.message)
   }
@@ -30,7 +30,7 @@ const getAllImages = async (req, res) => {
   try {
     const images = await Image.find()
     return res.status(200).json({ images })
-  } 
+  }
   catch (error) {
     return res.status(500).send(error.message)
   }
@@ -41,7 +41,7 @@ const getAllImages = async (req, res) => {
 
 const addImage = async (req, res) => {
   try {
-    
+
     const projectId = req.body.project_id
     const image = await new Image(req.body)
     await image.save()
@@ -49,9 +49,9 @@ const addImage = async (req, res) => {
     const project = await Project.findById(projectId)
     project.image.push(image._id)
     await Project.findByIdAndUpdate(projectId, project)
-    
+
     return res.status(201).json(image)
-    
+
   } catch (error) {
     return res.sendStatus(500).send(error.message)
   }
@@ -79,7 +79,7 @@ const deleteProject = async (req, res) => {
     await Project.findByIdAndDelete(id)
     await Image.deleteMany({project_id: id})
     return res.sendStatus(200)
-  } 
+  }
   catch (error) {
     return res.sendStatus(500).send(error.message)
   }
@@ -90,7 +90,7 @@ const deleteImage = async (req, res) => {
     const id = req.params.id
     await Image.findByIdAndDelete(id)
     return res.sendStatus(200)
-  } 
+  }
   catch (error) {
     return res.sendStatus(500).send(error.message)
   }
@@ -102,9 +102,9 @@ const updateProject = async (req, res) => {
   try {
     const id = req.params.id
 
-    
+
     const project = await Project.findByIdAndUpdate(id, req.body)
-    
+
     return res.status(201).json({project})
   } catch (error) {
     return res.sendStatus(500).send(error.message)

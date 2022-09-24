@@ -22,13 +22,13 @@ export default function Nav() {
   return (
       <nav className={styles.nav}>
         <ul>
-          {projects.map((project) => (
-              <li key={ project._id } className={styles.projectTitle}>
-                <NavLink  to={( `/projects/${ project._id }` )} >
-                  { project.title }
-                </NavLink>
-              </li>
-            ))}
+          {projects.map(({_id, slug, title}) => (
+            <li key={ _id } className={styles.projectTitle}>
+              <NavLink  to={( `/projects/${ slug }` )} >
+                { title }
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </nav>
   )
