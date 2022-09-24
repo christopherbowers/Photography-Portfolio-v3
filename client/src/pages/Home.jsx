@@ -26,7 +26,16 @@ export default function Home() {
 
   return (
     <div className={styles.splashImage}>
-      {loading ? <Loading /> : <img src={ images[randomImageIndex].image_url } alt="" />}
+      {(
+        loading
+        ) ? (
+        <Loading />
+        ) : (
+        <img
+          src={ images[randomImageIndex].image_url }
+          alt={ `Image Title: ${images[randomImageIndex].image_title}` }
+        />
+      )}
     </div>
   )
 }
