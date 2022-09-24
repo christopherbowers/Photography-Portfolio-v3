@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import LazyLoad from 'react-lazyload'
 import axios from 'axios'
 import Loading from '../components/Loading'
 import styles from './ProjectPage.module.scss'
@@ -36,14 +35,17 @@ return (
     <div className={styles.projectContainer}>
     {userInfo ? <AddImages /> : null}
       <h2 className={styles.projectTitle}>{project.title}</h2>
-        {project ? project.image.map((image, index) => (
-          <LazyLoad key={index} height={1000} >
-            <div className={styles.imageContainer} >
-              <img src={image.image_url} alt={image.image_title} className={styles.image} />
-              <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
-            </div>
-          </LazyLoad>
-        )) : null}
+        {project?.image.map((image, index) => (
+          <div key={image._id} className={styles.imageContainer} style={{minHeight: '400px'}}>
+            <img
+              src={image.image_url}
+              alt={image.image_title}
+              className={styles.image}
+              loading={index == 0 ? 'eager' : 'lazy'}
+            />
+            <p><strong>Title: </strong>{image.image_title} ({image.year})</p>
+          </div>
+        ))}
     </div>
   )
 }
