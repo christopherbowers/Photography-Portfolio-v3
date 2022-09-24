@@ -10,7 +10,13 @@ export default defineConfig({
          target: 'http://localhost:3001',
          changeOrigin: true,
          secure: false,
-       }
+       },
+      '/images': {
+         target: 'http://localhost:3001/images',
+         changeOrigin: true,
+         secure: false,
+         rewrite: (path) => path.replace(/^\/images/, '')
+       },
     }
   }
 })
