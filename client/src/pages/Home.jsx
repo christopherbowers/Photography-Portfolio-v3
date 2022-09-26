@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import styles from './Home.module.scss'
 import Loading from '../components/Loading'
 
@@ -9,9 +8,10 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   const getImages = async () => {
-    await axios.get('/api/images')
-    .then(res => {
-      setImages(res.data.images)
+    await fetch('/api/images')
+    .then(res => res.json())
+    .then(data => {
+      setImages(data.images)
       setLoading(false)
     })
     .catch( error => error.message )
