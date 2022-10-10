@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "http://bowers-portfolio.herokuapp.com/api/$1"
+    },
+    {
+      "source": "/images",
+      "destination": "http://bowers-portfolio.herokuapp.com/api/images"
+    },
+    {
+      "source": "/images/(.*)",
+      "destination": "http://bowers-portfolio.herokuapp.com/api/images/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
