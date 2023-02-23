@@ -6,7 +6,7 @@ const Image = new Schema(
     image_title: String,
     year: String,
     image_url: String,
-    project_id: { type: Schema.Types.ObjectId, ref: 'projects' },
+    project: { type: Schema.Types.ObjectId, ref: 'projects' },
   },
   { timestamps: true },
 )

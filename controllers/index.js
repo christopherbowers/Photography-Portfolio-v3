@@ -34,7 +34,18 @@ const getProjects = async (req, res) => {
 
 const getAllImages = async (req, res) => {
   try {
-    const images = await Image.find();
+    const populated = Object.keys(req.query).includes('populate');
+    const random = Object.keys(req.query).includes('random');
+    if (random) {
+      const image = await Image.aggregate([
+        { $sample: { size: 1 } }]);
+      return res.status(200).json({ image });
+    }
+
+    const images = populated
+      ? await Image.find().select('-createdAt -updatedAt').populate('project', 'slug title -_id')
+      : await Image.find().select('-createdAt -updatedAt  -project');
+
     return res.status(200).json({ images });
   } catch (error) {
     return res.status(500).send(error.message);
