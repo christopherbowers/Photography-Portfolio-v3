@@ -26,7 +26,7 @@ const ProjectPage = () => {
   useEffect(() => {
     let ignore = false
     if (!ignore) {
-      getProject(`/api/projects/${slug}`)
+      getProject(`/api/projects?name=${slug}&populate`)
     }
 
     return () => {
@@ -34,7 +34,7 @@ const ProjectPage = () => {
     }
   }, [slug])
 
-if (project.length < 1) {
+if (!project.image) {
   return <Loading />
 }
 

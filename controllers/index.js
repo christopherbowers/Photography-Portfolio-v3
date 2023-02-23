@@ -1,23 +1,32 @@
 const Project = require('../models/projects');
 const Image = require('../models/images');
 
-/* GET
-============================================== */
-const getAllProjects = async (req, res) => {
+/*
+ * GET
+ */
+const getProjects = async (req, res) => {
   try {
-    const projects = await Project.find({});
-    return res.status(200).json({ projects });
-    //     .populate('image').exec()
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
-};
+    if (Object.keys(req.query).length === 0) {
+      const projects = await Project.find({}).select('title slug');
+      return res.status(200).json({ projects });
+    }
 
-const getProject = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const project = await Project.findOne({ slug: id }).populate('image');
-    return res.status(200).json({ project });
+    if (req.query) {
+      const name = req.query.name;
+      let project = await Project.findOne({ slug: name }).select('-createdAt -updatedAt');
+      // Only populate image objects if query param is present
+      if (Object.keys(req.query).includes('populate')) {
+        project = await Project.findOne({ slug: name })
+          .select('-createdAt -updatedAt')
+          .populate('image', 'image_title year image_url');
+      }
+
+      if (project) {
+        return res.status(200).json({ project });
+      } else {
+        return res.sendStatus(204);
+      }
+    }
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -100,8 +109,7 @@ const updateProject = async (req, res) => {
 };
 
 module.exports = {
-  getAllProjects,
-  getProject,
+  getProjects,
   addImage,
   getAllImages,
   createProject,
