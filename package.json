@@ -4,22 +4,10 @@
   "description": "By: Christopher Bowers",
   "main": "server.js",
   "scripts": {
-    "seed": "node seed/seed.js",
     "dev": "nodemon server.js",
     "start": "node server.js",
     "build": "cd client && yarn && yarn build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/christopherbowers/portfolio_builder.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/christopherbowers/portfolio_builder/issues"
-  },
-  "homepage": "https://github.com/christopherbowers/portfolio_builder#readme",
   "dependencies": {
     "aws-sdk": "^2.853.0",
     "bcrypt": "^5.0.1",
