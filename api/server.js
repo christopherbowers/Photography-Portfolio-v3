@@ -33,23 +33,23 @@ const logger = require('morgan');
 app.use(express.static(path.join(__dirname, '../client/dist/')));
 
 app.use(bodyParser.json());
-app.use(logger('dev'));
+app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'production' }));
 app.use(cors());
 
 // Send files to S3
 app.post('/upload', upload.single('image'), async (req, res) => {
   const file = req.file;
-  console.log(file);
+  // console.log(file);
 
   const result = await uploadFile(file);
   await unlinkFile(file.path);
-  console.log(result);
+  // console.log(result);
   res.send({ imagePath: `/images/${result.Key}` });
 });
 
 // Get files from S3
 app.get('/images/:key', (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
   const key = req.params.key;
   const readStream = getFileStream(key);
 
