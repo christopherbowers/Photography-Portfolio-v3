@@ -1,0 +1,29 @@
+version: "3"
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./client:/client
+    links:
+      - api
+    networks:
+      - webappnetwork
+ 
+services:
+  api:
+    container_name: portfolio-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/app/api 
+      - ./client:/client  # Bind mount the client directory into the api container
+    ports:
+      - 3001:3001
+  
+networks:
+ webappnetwork:
+  driver: bridge
