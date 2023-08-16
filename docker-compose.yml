@@ -1,29 +1,25 @@
-version: "3"
+version: '3.8'
+name: photo-portfolio
 services:
   client:
+    container_name: portfolio-client
     build:
       context: ./client
       dockerfile: Dockerfile
-    restart: always
-    volumes:
-      - ./client:/client
-    links:
-      - api
+    restart: 'no'
     networks:
       - webappnetwork
- 
-services:
+
   api:
     container_name: portfolio-api
     build:
       context: ./api
       dockerfile: Dockerfile
-    volumes:
-      - ./api:/app/api 
-      - ./client:/client  # Bind mount the client directory into the api container
     ports:
       - 3001:3001
-  
+    depends_on:
+      - client
+
 networks:
- webappnetwork:
-  driver: bridge
+  webappnetwork:
+    driver: bridge
