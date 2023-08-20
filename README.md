@@ -22,6 +22,6 @@ See previous versions [v1](https://github.com/christopherbowers/Photography-Port
  - AWS S3
 
 
-## Deployed site on Heroku
+## Deployed with Docker
 
-<https://bowers-portfolio.herokuapp.com/>
+<https://photo.christopherbowers.net/>
