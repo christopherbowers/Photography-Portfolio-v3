@@ -11,7 +11,7 @@ export default function Nav() {
     await fetch('/api/projects')
       .then(res => res.json())
       .then(data => {
-        setProjects(data.projects)
+        setProjects(data)
       })
       .catch(err => console.error(err))
   }

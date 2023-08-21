@@ -8,7 +8,7 @@ const getProjects = async (req, res) => {
   try {
     if (Object.keys(req.query).length === 0) {
       const projects = await Project.find({}).select('title slug');
-      return res.status(200).json({ projects });
+      return res.status(200).json(projects);
     }
 
     if (req.query) {

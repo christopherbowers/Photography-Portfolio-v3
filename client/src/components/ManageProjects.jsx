@@ -10,7 +10,7 @@ export default function ManageProjects() {
   useEffect(() => {
     const getProjects = async () => {
       const res = await axios.get('/api/projects')
-      setProjects(res.data.projects)
+      setProjects(res.data)
     }
     getProjects()
   }, [])
