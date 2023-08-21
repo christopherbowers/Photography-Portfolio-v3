@@ -24,7 +24,7 @@ const getProjects = async (req, res) => {
       if (project) {
         return res.status(200).json({ project });
       } else {
-        return res.sendStatus(204);
+        return res.status(200).json([]);
       }
     }
   } catch (error) {
@@ -37,8 +37,7 @@ const getAllImages = async (req, res) => {
     const populated = Object.keys(req.query).includes('populate');
     const random = Object.keys(req.query).includes('random');
     if (random) {
-      const image = await Image.aggregate([
-        { $sample: { size: 1 } }]);
+      const image = await Image.aggregate([{ $sample: { size: 1 } }]);
       return res.status(200).json({ image });
     }
 
