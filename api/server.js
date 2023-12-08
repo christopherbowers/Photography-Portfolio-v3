@@ -61,6 +61,17 @@ app.use('/api/auth', AuthRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+app.get('/content/*', (req, res) => {
+  const regex = /\/content\/(.*)\/(.*)\.jpg/g;
+  const path = req.path.replace(regex, 'images/$2.webp');
+
+  res
+    .writeHead(301, {
+      Location: `https://photo.christopherbowers.net/${path}`,
+    })
+    .end();
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
