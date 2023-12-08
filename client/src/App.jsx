@@ -17,7 +17,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<LayoutWithNavbar />}>
             <Route path='/' element={<Home />} />
-            <Route path='/project/:slug' element={<ProjectPage />} />
+            <Route path='/projects/:slug' element={<ProjectPage />} />
           </Route>
           <Route path='/login' element={<Login />} />
 

@@ -28,7 +28,7 @@ export default function Nav() {
         <ul>
           {projects?.map(({_id, slug, title}) => (
             <li key={ _id } className={styles.projectTitle}>
-              <NavLink  to={( `/project/${ slug }` )} >
+              <NavLink  to={( `/projects/${ slug }` )} >
                 { title }
               </NavLink>
             </li>
