@@ -15,6 +15,7 @@ export default function App() {
   return (
       <Suspense fallback={<Loading />}>
         <Routes>
+          <Route path="*" element={<>Not Found</>} />
           <Route path='/' element={<LayoutWithNavbar />}>
             <Route path='/' element={<Home />} />
             <Route path='/projects/:slug' element={<ProjectPage />} />
