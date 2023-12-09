@@ -4,8 +4,8 @@ import { ProtectMiddleware } from '../middleware/ProtectMiddleware.js';
 
 const AuthRoutes = Router();
 
-AuthRoutes.route('/register').post(registerUser);
-AuthRoutes.route('/login').post(loginUser);
-AuthRoutes.route('/session').get(ProtectMiddleware, checkSession);
+AuthRoutes.post('/register', registerUser);
+AuthRoutes.post('/login', loginUser);
+AuthRoutes.get('/session', ProtectMiddleware, checkSession);
 
 export { AuthRoutes };

@@ -15,9 +15,13 @@ export const ProtectMiddleware = asyncHandler(async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const { id, exp } = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-    req.user = await User.findById(decoded.id);
+    if (Date.now() >= exp * 1000) {
+      res.status(401).end();
+    }
+
+    req.user = await User.findById(id);
 
     next();
   } catch (error) {

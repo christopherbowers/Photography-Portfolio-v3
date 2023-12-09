@@ -33,7 +33,7 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error('Password incorrect');
   }
 
-  res.status(201).json({
+  res.status(200).json({
     success: true,
     data: {
       id: user._id,
