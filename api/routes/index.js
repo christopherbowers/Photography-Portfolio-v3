@@ -11,7 +11,7 @@ import {
 
 export const routes = Router();
 // const ProtectMiddleware = require('../middleware/ProtectMiddleware');
-
+routes.get('/', (req, res) => res.send('✅ API Up'));
 routes.get('/projects', getProjects);
 routes.get('/images', getAllImages);
 
