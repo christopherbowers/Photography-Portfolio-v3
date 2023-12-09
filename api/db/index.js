@@ -1,15 +1,17 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv').config()
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/portfolioDatabase')
   .then(() => {
-    console.log('Successfully connected to MongoDB')
+    console.log('Successfully connected to MongoDB');
   })
-  .catch(e => {
-    console.error('Connection error', e.message)
-  })
+  .catch((e) => {
+    console.error('Connection error', e.message);
+  });
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
-module.exports = db
+export default db;

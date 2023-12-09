@@ -1,17 +1,9 @@
-const express = require('express')
+import { Router } from 'express';
+import { registerUser, loginUser, checkSession } from '../controllers/AuthController.js';
+import { ProtectMiddleware } from '../middleware/ProtectMiddleware.js';
 
-const {
-  registerUser,
-  loginUser,
-  checkSession,
-} = require('../controllers/AuthController.js')
+export const AuthRoutes = Router();
 
-const ProtectMiddleware = require('../middleware/ProtectMiddleware.js')
-const authRouter = require('express').Router();
-
-authRouter.route('/register').post(registerUser)
-authRouter.route('/login').post(loginUser)
-authRouter.route('/session').get(ProtectMiddleware, checkSession)
-
-module.exports = authRouter;
-
+AuthRoutes.route('/register').post(registerUser);
+AuthRoutes.route('/login').post(loginUser);
+AuthRoutes.route('/session').get(ProtectMiddleware, checkSession);

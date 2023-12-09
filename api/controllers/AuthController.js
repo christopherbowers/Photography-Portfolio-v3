@@ -1,7 +1,7 @@
-const asyncHandler = require('express-async-handler');
-const User = require('../models/UserModel.js');
-const generateToken = require('../utils/generateToken.js');
-const bcrypt = require('bcryptjs');
+import asyncHandler from 'express-async-handler';
+import User from '../models/UserModel.js';
+import generateToken from '../utils/generateToken.js';
+import bcrypt from 'bcryptjs';
 
 const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create(req.body);
@@ -19,7 +19,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  let user = await User.findOne({ email: req.body.email });
+  const user = await User.findOne({ email: email });
 
   if (!user) {
     res.status(401);
@@ -63,8 +63,4 @@ const checkSession = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = {
-  registerUser,
-  loginUser,
-  checkSession,
-};
+export { registerUser, loginUser, checkSession };

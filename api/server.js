@@ -1,22 +1,24 @@
-const express = require('express');
-const routes = require('./routes');
-const db = require('./db');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import logger from 'morgan';
+import path from 'path';
+import multer from 'multer';
+import slugify from 'slugify';
+import { unlink } from 'fs';
+import { promisify } from 'util';
+import { URL } from 'url';
+import { routes } from './routes/index.js';
+import { AuthRoutes } from './routes/AuthRoutes.js';
+// import { notFound, errorHandler } from './middleware/ErrorHandler.js';
+import { uploadFile, getFileStream } from './controllers/s3.js';
+import db from './db/index.js';
 
-const { notFound, errorHandler } = require('./middleware/ErrorHandler.js');
-const AuthRoutes = require('./routes/AuthRoutes.js');
-
-const multer = require('multer');
-const slugify = require('slugify');
-const fs = require('fs');
-const util = require('util');
-const unlinkFile = util.promisify(fs.unlink);
+const unlinkFile = promisify(unlink);
 
 const PORT = process.env.PORT || 3001;
 
-let storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: function (req, file, cb) {
     cb(null, slugify(file.originalname, { remove: /[*+~()'"!:@]/g }).toLowerCase());
@@ -25,11 +27,9 @@ let storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-const { uploadFile, getFileStream } = require('./controllers/s3');
-
 const app = express();
-const logger = require('morgan');
 
+const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '../client/dist/')));
 
 app.use(bodyParser.json());
@@ -76,4 +76,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-app.listen(PORT, () => console.log(`Express Listening on port: ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Express Listening on port: ${PORT}`);
+  console.log(`http://localhost:${PORT}`);
+});

@@ -1,5 +1,5 @@
-const Project = require('../models/projects');
-const Image = require('../models/images');
+import Project from '../models/projects.js';
+import Image from '../models/images.js';
 
 /*
  * GET
@@ -118,12 +118,4 @@ const updateProject = async (req, res) => {
   }
 };
 
-module.exports = {
-  getProjects,
-  addImage,
-  getAllImages,
-  createProject,
-  deleteProject,
-  deleteImage,
-  updateProject,
-};
+export { getProjects, addImage, getAllImages, createProject, deleteProject, deleteImage, updateProject };

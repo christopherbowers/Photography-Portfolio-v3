@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const Image = new Schema(
+const ImageSchema = new Schema(
   {
     image_title: String,
     year: String,
@@ -9,6 +9,8 @@ const Image = new Schema(
     project: { type: Schema.Types.ObjectId, ref: 'projects' },
   },
   { timestamps: true },
-)
+);
 
-module.exports = mongoose.model('images', Image)
+const Image = mongoose.model('images', ImageSchema);
+
+export default Image;
