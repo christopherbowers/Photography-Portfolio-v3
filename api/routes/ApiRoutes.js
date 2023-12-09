@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { ProtectMiddleware } from '../middleware/ProtectMiddleware.js';
 import {
   getProjects,
   addImage,
@@ -15,12 +16,12 @@ ApiRoutes.get('/', (req, res) => res.send('✅ API Up'));
 ApiRoutes.get('/projects', getProjects);
 ApiRoutes.get('/images', getAllImages);
 
-ApiRoutes.delete('/projects/:id', deleteProject);
-ApiRoutes.delete('/images/:id', deleteImage);
+ApiRoutes.delete('/projects/:id', ProtectMiddleware, deleteProject);
+ApiRoutes.delete('/images/:id', ProtectMiddleware, deleteImage);
 
-ApiRoutes.put('/projects/:id', updateProject);
+ApiRoutes.put('/projects/:id', ProtectMiddleware, updateProject);
 
-ApiRoutes.post('/projects/', createProject);
-ApiRoutes.post('/images/', addImage);
+ApiRoutes.post('/projects/', ProtectMiddleware, createProject);
+ApiRoutes.post('/images/', ProtectMiddleware, addImage);
 
 export { ApiRoutes };
