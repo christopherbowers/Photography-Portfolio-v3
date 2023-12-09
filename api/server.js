@@ -3,29 +3,14 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
-import multer from 'multer';
-import slugify from 'slugify';
-import { unlink } from 'fs';
-import { promisify } from 'util';
 import { URL } from 'url';
 import { routes } from './routes/index.js';
 import { AuthRoutes } from './routes/AuthRoutes.js';
+import { ImageRoutes } from './routes/imageRoutes.js';
 // import { notFound, errorHandler } from './middleware/ErrorHandler.js';
-import { uploadFile, getFileStream } from './controllers/s3.js';
 import db from './db/index.js';
 
-const unlinkFile = promisify(unlink);
-
 const PORT = process.env.PORT || 3001;
-
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: function (req, file, cb) {
-    cb(null, slugify(file.originalname, { remove: /[*+~()'"!:@]/g }).toLowerCase());
-  },
-});
-
-const upload = multer({ storage: storage });
 
 const app = express();
 
@@ -36,27 +21,8 @@ app.use(bodyParser.json());
 app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'production' }));
 app.use(cors());
 
-// Send files to S3
-app.post('/upload', upload.single('image'), async (req, res) => {
-  const file = req.file;
-  // console.log(file);
-
-  const result = await uploadFile(file);
-  await unlinkFile(file.path);
-  // console.log(result);
-  res.send({ imagePath: `/images/${result.Key}` });
-});
-
-// Get files from S3
-app.get('/images/:key', (req, res) => {
-  // console.log(req.params);
-  const key = req.params.key;
-  const readStream = getFileStream(key);
-
-  readStream.pipe(res);
-});
-
 app.use('/api', routes);
+app.use('', ImageRoutes);
 app.use('/api/auth', AuthRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
