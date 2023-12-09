@@ -4,9 +4,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
 import { URL } from 'url';
-import { routes } from './routes/index.js';
-import { AuthRoutes } from './routes/AuthRoutes.js';
-import { ImageRoutes } from './routes/imageRoutes.js';
+import { ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
 // import { notFound, errorHandler } from './middleware/ErrorHandler.js';
 import db from './db/index.js';
 
@@ -21,7 +19,7 @@ app.use(bodyParser.json());
 app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'production' }));
 app.use(cors());
 
-app.use('/api', routes);
+app.use('/api', ApiRoutes);
 app.use('', ImageRoutes);
 app.use('/api/auth', AuthRoutes);
 
@@ -39,7 +37,8 @@ app.get('/content/*', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  //res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  res.send('hello world');
 });
 
 app.listen(PORT, () => {
