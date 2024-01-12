@@ -20,7 +20,7 @@ app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));
 app.use(cors());
 
 app.use('/api', ApiRoutes);
-app.use('', ImageRoutes);
+app.use('/images', ImageRoutes);
 app.use('/api/auth', AuthRoutes);
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));

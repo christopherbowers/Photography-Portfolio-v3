@@ -1,39 +1,40 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
-import S3 from 'aws-sdk/clients/s3.js';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 
 dotenv.config();
 
-const bucketName = process.env.AWS_BUCKET_NAME;
-const region = process.env.AWS_BUCKET_REGION;
-const accessKeyId = process.env.AWS_ID;
-const secretAccessKey = process.env.AWS_KEY;
+const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_ID, AWS_KEY } = process.env;
 
-const s3 = new S3({
-  region,
-  accessKeyId,
-  secretAccessKey,
+const s3 = new S3Client({
+  AWS_BUCKET_REGION,
+  AWS_ID,
+  AWS_KEY,
 });
 
 // uploads a file to s3
 export function uploadFile(file) {
-  const fileStream = fs.createReadStream(file.path);
+  const { path, filename } = file;
+  const fileStream = fs.createReadStream(path);
 
   const uploadParams = {
-    Bucket: bucketName,
+    Bucket: AWS_BUCKET_NAME,
     Body: fileStream,
-    Key: file.filename,
+    Key: filename,
   };
 
   return s3.upload(uploadParams).promise();
 }
 
 // downloads a file from s3
-export function getFileStream(fileKey) {
-  const downloadParams = {
-    Key: fileKey,
-    Bucket: bucketName,
+export async function getFileStream(key) {
+  const params = {
+    Key: key,
+    Bucket: AWS_BUCKET_NAME,
   };
 
-  return s3.getObject(downloadParams).createReadStream();
+  const getObjectCommand = new GetObjectCommand(params);
+
+  const { Body } = await s3.send(getObjectCommand);
+  return Body;
 }

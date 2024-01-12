@@ -28,19 +28,31 @@ ImageRoutes.post('/upload', ProtectMiddleware, upload.single('image'), async (re
   // console.log(result);
 
   //TODO: add this directly to DB from here not on front end
-  res.send({ imagePath: `/images/${result.Key}` });
+  res.send({ imagePath: `/${result.Key}` });
 });
 
 // Get files from S3
-ImageRoutes.get('/images/:key?', (req, res) => {
+ImageRoutes.get('/:key?', async (req, res) => {
   const key = req?.params?.key;
-  if (!key) {
-    res.sendStatus(404);
+
+  try {
+    if (!key) {
+      return res.sendStatus(404);
+    }
+
+    const readStream = await getFileStream(key);
+
+    // Set appropriate headers for the response
+    const contentType = readStream.rawHeaders[readStream.rawHeaders.indexOf('Content-Type') + 1];
+    res.setHeader('Content-Type', `${contentType}`);
+
+    // Pipe the ReadableStream to the response
+    readStream.pipe(res);
+  } catch (error) {
+    // Handle error, e.g., log or send an error response
+    console.error('Error fetching image:', error);
+    res.status(500).send('Internal Server Error');
   }
-
-  const readStream = getFileStream(key);
-
-  readStream.pipe(res);
 });
 
 // Redirect old images paths to new
