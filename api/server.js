@@ -5,7 +5,7 @@ import logger from 'morgan';
 import path from 'path';
 import { URL } from 'url';
 import { ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
-// import { notFound, errorHandler } from './middleware/ErrorHandler.js';
+import { notFound, errorHandler } from './middleware/ErrorHandler.js';
 import db from './db/index.js';
 
 const PORT = process.env.PORT || 3001;
@@ -28,6 +28,8 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.get('/content/*', (req, res) => {
   const regex = /\/content\/(.*)\/(.*)\.jpg/g;
   const path = req.path.replace(regex, 'images/$2.webp');
+app.use(notFound);
+app.use(errorHandler);
 
   res
     .writeHead(301, {
