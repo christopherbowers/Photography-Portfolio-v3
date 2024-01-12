@@ -1,20 +1,14 @@
 import { Router } from 'express';
 import { ProtectMiddleware } from '../middleware/ProtectMiddleware.js';
-import {
-  getProjects,
-  addImage,
-  getAllImages,
-  createProject,
-  deleteProject,
-  deleteImage,
-  updateProject,
-} from '../controllers/index.js';
+import { addImage, getAllImages, deleteImage, getMenus } from '../controllers/index.js';
+import { getProjects, createProject, deleteProject, updateProject } from '../controllers/ProjectController.js';
 
 const ApiRoutes = Router();
 // const ProtectMiddleware = require('../middleware/ProtectMiddleware');
-ApiRoutes.get('/', (req, res) => res.send('✅ API Up'));
+ApiRoutes.get('/', (_, res) => res.send('✅ API Up'));
 ApiRoutes.get('/projects', getProjects);
 ApiRoutes.get('/images', getAllImages);
+ApiRoutes.get('/menus', getMenus);
 
 ApiRoutes.delete('/projects/:id', ProtectMiddleware, deleteProject);
 ApiRoutes.delete('/images/:id', ProtectMiddleware, deleteImage);

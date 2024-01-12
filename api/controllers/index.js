@@ -1,37 +1,6 @@
 import Project from '../models/projects.js';
 import Image from '../models/images.js';
 
-/*
- * GET
- */
-const getProjects = async (req, res) => {
-  try {
-    if (Object.keys(req.query).length === 0) {
-      const projects = await Project.find({}).select('title slug');
-      return res.status(200).json(projects);
-    }
-
-    if (req.query) {
-      const name = req.query.name;
-      let project = await Project.findOne({ slug: name }).select('-createdAt -updatedAt');
-      // Only populate image objects if query param is present
-      if (Object.keys(req.query).includes('populate')) {
-        project = await Project.findOne({ slug: name })
-          .select('-createdAt -updatedAt')
-          .populate('image', 'image_title year image_url');
-      }
-
-      if (project) {
-        return res.status(200).json({ project });
-      } else {
-        return res.status(200).json([]);
-      }
-    }
-  } catch (error) {
-    return res.status(500).send(error.message);
-  }
-};
-
 const getAllImages = async (req, res) => {
   try {
     const populated = Object.keys(req.query).includes('populate');
@@ -51,9 +20,6 @@ const getAllImages = async (req, res) => {
   }
 };
 
-/* POST
-============================================== */
-
 const addImage = async (req, res) => {
   try {
     const projectId = req.body.project_id;
@@ -70,32 +36,6 @@ const addImage = async (req, res) => {
   }
 };
 
-const createProject = async (req, res) => {
-  try {
-    const project = await new Project(req.body);
-    await project.save();
-    return res.status(201).json({
-      project,
-    });
-  } catch (error) {
-    return res.sendStatus(500).send(error.message);
-  }
-};
-
-/* DELETE
-============================================== */
-
-const deleteProject = async (req, res) => {
-  try {
-    const id = req.params.id;
-    await Project.findByIdAndDelete(id);
-    await Image.deleteMany({ project_id: id });
-    return res.sendStatus(200);
-  } catch (error) {
-    return res.sendStatus(500).send(error.message);
-  }
-};
-
 const deleteImage = async (req, res) => {
   try {
     const id = req.params.id;
@@ -106,19 +46,7 @@ const deleteImage = async (req, res) => {
   }
 };
 
-const updateProject = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const project = await Project.findByIdAndUpdate(id, req.body);
-
-    return res.status(201).json({ project });
-  } catch (error) {
-    return res.sendStatus(500).send(error.message);
-  }
-};
-
-const getMenus = async (req, res) => {
+const getMenus = async (_, res) => {
   try {
     const projects = await Project.find({}).select('title slug');
     const menus = projects.map(({ title, slug, _id }) => {
@@ -130,4 +58,4 @@ const getMenus = async (req, res) => {
   }
 };
 
-export { addImage, getAllImages, deleteImage, updateProject, getMenus };
+export { addImage, getAllImages, deleteImage, getMenus };
