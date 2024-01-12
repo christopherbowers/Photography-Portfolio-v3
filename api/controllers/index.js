@@ -58,4 +58,13 @@ const getMenus = async (_, res) => {
   }
 };
 
-export { addImage, getAllImages, deleteImage, getMenus };
+const getRandomImage = async (_, res) => {
+  try {
+    const image = await Image.aggregate([{ $sample: { size: 1 } }]);
+    return image[0];
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+export { addImage, getAllImages, deleteImage, getMenus, getRandomImage };

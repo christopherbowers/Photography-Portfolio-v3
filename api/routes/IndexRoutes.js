@@ -1,12 +1,16 @@
-import { Router } from "express";
-
+import { Router } from 'express';
+import { getRandomImage } from '../controllers/index.js';
 
 export const IndexRoutes = Router()
-  .get('/', (_, res) => {
-    //res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    res.send('hello world');
+  .get('/', async (_, res) => {
+    const image = await getRandomImage();
+    res.render('home', { pageTitle: 'Home', image: image });
   })
 
+  .get('/', async (_, res) => {
+    const image = await getRandomImage();
+    res.render('home', { pageTitle: 'Home', image: image });
+  })
 
   .get('/content/*', (req, res) => {
     const regex = /\/content\/(.*)\/(.*)\.jpg/g;
