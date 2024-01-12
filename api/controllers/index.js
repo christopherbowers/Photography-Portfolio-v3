@@ -118,4 +118,16 @@ const updateProject = async (req, res) => {
   }
 };
 
-export { getProjects, addImage, getAllImages, createProject, deleteProject, deleteImage, updateProject };
+const getMenus = async (req, res) => {
+  try {
+    const projects = await Project.find({}).select('title slug');
+    const menus = projects.map(({ title, slug, _id }) => {
+      return { id: _id, title: title, url: `/projects/${slug}` };
+    });
+    return res.status(200).json({ body: menus });
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+export { addImage, getAllImages, deleteImage, updateProject, getMenus };
