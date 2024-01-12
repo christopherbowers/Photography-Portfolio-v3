@@ -4,7 +4,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
 import { URL } from 'url';
-import { ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
+import {IndexRoutes, ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
 import { notFound, errorHandler } from './middleware/ErrorHandler.js';
 import db from './db/index.js';
 
@@ -19,29 +19,15 @@ app.use(bodyParser.json());
 app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));
 app.use(cors());
 
+app.use('/', IndexRoutes);
 app.use('/api', ApiRoutes);
 app.use('/images', ImageRoutes);
 app.use('/api/auth', AuthRoutes);
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-app.get('/content/*', (req, res) => {
-  const regex = /\/content\/(.*)\/(.*)\.jpg/g;
-  const path = req.path.replace(regex, 'images/$2.webp');
 app.use(notFound);
 app.use(errorHandler);
 
-  res
-    .writeHead(301, {
-      Location: `https://photo.christopherbowers.net/${path}`,
-    })
-    .end();
-});
-
-app.get('/', (_, res) => {
-  //res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-  res.send('hello world');
-});
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.listen(PORT, () => {
   console.log(`Express Listening on port: ${PORT}`);
