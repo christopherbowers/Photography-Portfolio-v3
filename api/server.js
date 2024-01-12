@@ -8,7 +8,7 @@ import { ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
 import { notFound, errorHandler } from './middleware/ErrorHandler.js';
 import db from './db/index.js';
 
-const PORT = process.env.PORT || 3001;
+const { NODE_ENV, PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -16,7 +16,7 @@ const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '../client/dist/')));
 
 app.use(bodyParser.json());
-app.use(logger('dev', { skip: (_, __) => process.env.NODE_ENV === 'production' }));
+app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));
 app.use(cors());
 
 app.use('/api', ApiRoutes);
