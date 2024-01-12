@@ -10,7 +10,7 @@ const ImageRoutes = Router();
 
 const storage = multer.diskStorage({
   destination: 'uploads/',
-  filename: function (req, file, cb) {
+  filename: function (_, file, cb) {
     cb(null, slugify(file.originalname, { remove: /[*+~()'"!:@]/g }).toLowerCase());
   },
 });
@@ -32,12 +32,27 @@ ImageRoutes.post('/upload', ProtectMiddleware, upload.single('image'), async (re
 });
 
 // Get files from S3
-ImageRoutes.get('/images/:key', (req, res) => {
-  // console.log(req.params);
-  const key = req.params.key;
+ImageRoutes.get('/images/:key?', (req, res) => {
+  const key = req?.params?.key;
+  if (!key) {
+    res.sendStatus(404);
+  }
+
   const readStream = getFileStream(key);
 
   readStream.pipe(res);
+});
+
+// Redirect old images paths to new
+ImageRoutes.get('/content/*', (req, res) => {
+  const regex = /\/content\/(.*)\/(.*)\.jpg/g;
+  const path = req.path.replace(regex, 'images/$2.webp');
+
+  res
+    .writeHead(301, {
+      Location: `https://photo.christopherbowers.net/${path}`,
+    })
+    .end();
 });
 
 export { ImageRoutes };
