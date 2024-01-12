@@ -16,7 +16,7 @@ const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '../client/dist/')));
 
 app.use(bodyParser.json());
-app.use(logger('dev', { skip: (req, res) => process.env.NODE_ENV === 'production' }));
+app.use(logger('dev', { skip: (_, __) => process.env.NODE_ENV === 'production' }));
 app.use(cors());
 
 app.use('/api', ApiRoutes);
@@ -36,7 +36,7 @@ app.get('/content/*', (req, res) => {
     .end();
 });
 
-app.get('*', (req, res) => {
+app.get('/', (_, res) => {
   //res.sendFile(path.join(__dirname, '../client/dist/index.html'));
   res.send('hello world');
 });
