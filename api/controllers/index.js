@@ -48,7 +48,7 @@ const deleteImage = async (req, res) => {
 
 const getMenus = async (_, res) => {
   try {
-    const projects = await Project.find({}).select('title slug');
+    const projects = await Project.find({}).select('title slug').lean();
     const menus = projects.map(({ title, slug, _id }) => {
       return { id: _id, title: title, url: `/projects/${slug}` };
     });

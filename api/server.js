@@ -3,9 +3,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
-import { URL } from 'url';
-import {IndexRoutes, ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
+import { IndexRoutes, ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
 import { notFound, errorHandler } from './middleware/ErrorHandler.js';
+import { initializeMenus, getMenusData } from './middleware/menuMiddleware.js';
 import db from './db/index.js';
 import { create } from 'express-handlebars';
 
@@ -13,18 +13,32 @@ const { NODE_ENV, PORT = 3001 } = process.env;
 
 const app = express();
 const hbs = create({
-    extname: 'hbs',
-    defaultLayout: 'layout',
-    layoutsDir: './views/layouts',
-    partialsDir: 'views/partials/',
-  });
+  extname: 'hbs',
+  defaultLayout: 'layout',
+  layoutsDir: './views/layouts',
+  partialsDir: './views/partials',
+});
+
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
 
+hbs.handlebars.registerHelper('year', () => {
+  return new Date().getFullYear();
+});
+
 const __dirname = new URL('.', import.meta.url).pathname;
-app.use(express.static(path.join(__dirname, '../client/dist/')));
+app.use(express.static(path.join(__dirname, '/public/')));
+
+initializeMenus();
+
+app.use((_, res, next) => {
+  const menusData = getMenusData();
+  res.locals.menus = menusData.body;
+
+  next();
+});
 
 app.use(bodyParser.json());
 app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));

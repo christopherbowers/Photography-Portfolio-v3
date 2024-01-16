@@ -1,15 +1,18 @@
 import { Router } from 'express';
 import { getRandomImage } from '../controllers/index.js';
+import { getProject } from '../controllers/ProjectController.js';
 
 export const IndexRoutes = Router()
   .get('/', async (_, res) => {
     const image = await getRandomImage();
-    res.render('home', { pageTitle: 'Home', image: image });
+
+    res.render('home', {pageTitle: 'Home', image: image });
   })
 
-  .get('/', async (_, res) => {
-    const image = await getRandomImage();
-    res.render('home', { pageTitle: 'Home', image: image });
+  .get('/projects/:slug', async (req, res) => {
+    const project = await getProject(req.params.slug);
+
+    res.render('project', { pageTitle: project.body.title, project: project.body });
   })
 
   .get('/content/*', (req, res) => {

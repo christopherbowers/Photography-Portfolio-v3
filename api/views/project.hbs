@@ -1,0 +1,13 @@
+<div>
+  <h1>{{pageTitle}}</h1>
+  <div>
+    {{#each project.image}}
+      <div>
+        <figure>
+          <img src={{image_url}} />
+          <figcaption>{{image_title}}</figcaption>
+        </figure>
+      </div>
+    {{/each}}
+  </div>
+</div>

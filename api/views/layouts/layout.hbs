@@ -10,6 +10,17 @@
     </style>
   </head>
   <body>
+    <div><a href="/">Christopher Bowers</a></div>
+    <div>
+    <nav>
+      <ul>
+        {{#each menus }}
+          <ul><a href={{ url }}>{{ title }}</a></ul>
+        {{/each}}
+      </ul>
+    </nav>
     {{{ body }}}
+    </div>
+    {{> footer }}
   </body>
 </html>
