@@ -17,16 +17,20 @@ const hbs = create({
   defaultLayout: 'layout',
   layoutsDir: './views/layouts',
   partialsDir: './views/partials',
+  helpers: {
+    currenYear: () => {
+      return new Date().getFullYear();
+    },
+    eq: (a, b) => {
+      console.log(a, b);
+      return a === b;
+    },
+  },
 });
-
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views');
-
-hbs.handlebars.registerHelper('year', () => {
-  return new Date().getFullYear();
-});
 
 const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '/public/')));
