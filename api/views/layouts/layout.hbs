@@ -1,26 +1,32 @@
 <html lang='en'>
   <head>
-    <meta charset='UTF-8' />
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta name='viewport' content='width=device-width, initial-scale=1' />
-    <link href='data:,' rel='icon' />
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="viewport" content='width=device-width, initial-scale=1'>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
     <title>{{ pageTitle }}</title>
-    <style>
-      * { font-family: system-ui, "Helvetica Neue", Arial, sans-serif; font-size: 16px; }
-    </style>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-    <div><a href="/">Christopher Bowers</a></div>
-    <div>
-    <nav>
-      <ul>
-        {{#each menus }}
-          <ul><a href={{ url }}>{{ title }}</a></ul>
-        {{/each}}
-      </ul>
-    </nav>
-    {{{ body }}}
+    <div class="banner">
+      <div><a href="/">Christopher Bowers</a>: Lens Based Media</div>
     </div>
+
+    <div style="margin: 0 24px;">
+      <div class="wrapper">
+      <nav>
+        <ul>
+          {{#each menus }}
+            <ul {{#if (eq ../pageTitle title)}}class="active"{{/if}}>
+              <a href={{ url }}>{{ title }}</a>
+            </ul>
+          {{/each}}
+        </ul>
+      </nav>
+      {{{ body }}}
+      </div>
+    </div>
+
     {{> footer }}
   </body>
 </html>

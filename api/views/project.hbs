@@ -1,13 +1,11 @@
 <div>
   <h1>{{pageTitle}}</h1>
-  <div>
+  <div class='image-list'>
     {{#each project.image}}
-      <div>
-        <figure>
-          <img src={{image_url}} />
-          <figcaption>{{image_title}}</figcaption>
-        </figure>
-      </div>
+      <figure>
+        <img src={{image_url}} {{#if (eq @index 0)}}{{else}}loading="lazy"{{/if}} />
+        <figcaption>{{image_title}} {{#if this.year}}<span>({{this.year}})</span>{{/if}}</figcaption>
+      </figure>
     {{/each}}
   </div>
 </div>

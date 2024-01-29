@@ -18,11 +18,10 @@ const hbs = create({
   layoutsDir: './views/layouts',
   partialsDir: './views/partials',
   helpers: {
-    currenYear: () => {
+    currentYear: () => {
       return new Date().getFullYear();
     },
     eq: (a, b) => {
-      console.log(a, b);
       return a === b;
     },
   },
