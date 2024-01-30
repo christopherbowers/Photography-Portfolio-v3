@@ -3,7 +3,7 @@
   <div class='image-list'>
     {{#each project.image}}
       <figure>
-        <img src={{image_url}} {{#if (eq @index 0)}}{{else}}loading="lazy"{{/if}} />
+        <img src={{image_url}} {{#if (eq @index 0)}}{{else}}loading="lazy"{{/if}} alt="{{image_title}} {{#if this.year}} ({{this.year}}){{/if}}"/>
         <figcaption>{{image_title}} {{#if this.year}}<span>({{this.year}})</span>{{/if}}</figcaption>
       </figure>
     {{/each}}
