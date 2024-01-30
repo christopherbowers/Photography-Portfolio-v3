@@ -1,14 +1,12 @@
 FROM node:lts-slim
 
-WORKDIR /api
+WORKDIR /src
 
-COPY package.json yarn.lock /api/
+COPY package.json yarn.lock /src/
 
 RUN yarn
 
-COPY . /api/
-
-COPY --from=photo-portfolio-client /client/dist /client/dist
+COPY . /src
 
 EXPOSE 3001
 
