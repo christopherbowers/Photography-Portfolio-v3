@@ -15,11 +15,11 @@
     <div style="margin: 0 24px;">
       <div class="wrapper">
       <nav>
-        <ul>
+        <ul role="menu">
           {{#each menus }}
-            <ul {{#if (eq ../pageTitle title)}}class="active"{{/if}}>
-              <a href={{ url }}>{{ title }}</a>
-            </ul>
+            <li {{#if (eq ../pageTitle title)}}class="active"{{/if}} role="none">
+              <a href={{ url }} role="menuitem">{{ title }}</a>
+            </li>
           {{/each}}
         </ul>
       </nav>
