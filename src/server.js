@@ -15,8 +15,8 @@ const app = express();
 const hbs = create({
   extname: 'hbs',
   defaultLayout: 'layout',
-  layoutsDir: './views/layouts',
-  partialsDir: './views/partials',
+  layoutsDir: './src/views/layouts',
+  partialsDir: './src/views/partials',
   helpers: {
     currentYear: () => {
       return new Date().getFullYear();
@@ -29,7 +29,7 @@ const hbs = create({
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', './src/views');
 
 const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '/public/')));

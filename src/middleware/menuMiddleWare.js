@@ -1,7 +1,6 @@
 import Project from '../models/projects.js';
 
 const getMenus = async () => {
-  console.log('runs');
   try {
     const projects = await Project.find({}).select('title slug').lean();
     const menus = projects.map(({ title, slug, _id }) => {
