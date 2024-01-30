@@ -1,13 +1,19 @@
+# Use the official Node.js image
 FROM node:lts-slim
 
-WORKDIR /src
+# Set the working directory
+WORKDIR /usr/app
 
-COPY package.json yarn.lock /src/
-
+COPY . /usr/app/
 RUN yarn
+# COPY src /usr/app/src
 
-COPY . /src
 
+# Install dependencies
+# RUN yarn
+
+# Expose the port your app will run on
 EXPOSE 3001
 
+# Start your application
 CMD ["yarn", "start"]
