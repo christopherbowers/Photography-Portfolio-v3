@@ -40,6 +40,10 @@ a {
 }
 
 .wrapper {
+  margin: 0 1.5rem;
+}
+
+.grid {
   display: grid;
   grid-template-columns: max-content minmax(100px, 1fr);
   grid-gap: 5rem;
