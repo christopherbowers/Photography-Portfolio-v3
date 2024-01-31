@@ -44,7 +44,10 @@ ImageRoutes.get('/:key?', async (req, res) => {
 
     // Set appropriate headers for the response
     const contentType = readStream.rawHeaders[readStream.rawHeaders.indexOf('Content-Type') + 1];
-    res.setHeader('Content-Type', `${contentType}`);
+    res.header({
+      'Content-Type': `${contentType}`,
+      'Cache-Control': 'public, max-age=31536000',
+    });
 
     // Pipe the ReadableStream to the response
     readStream.pipe(res);
