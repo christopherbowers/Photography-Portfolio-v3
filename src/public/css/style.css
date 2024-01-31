@@ -27,7 +27,7 @@ a {
   display: grid;
   align-items: center;
   color: #dddddd;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 700;
 
   & > div {
