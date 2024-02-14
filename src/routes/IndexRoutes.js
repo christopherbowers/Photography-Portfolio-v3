@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getRandomImage } from '../controllers/index.js';
 import { getProject } from '../controllers/ProjectController.js';
+import { loginUser } from '../controllers/AuthController.js';
 
 export const IndexRoutes = Router()
   .get('/', async (_, res) => {
@@ -24,4 +25,28 @@ export const IndexRoutes = Router()
         Location: `https://photo.christopherbowers.net/${path}`,
       })
       .end();
+  })
+
+  .get('/admin', async (req, res) => {
+    if (!req.session.loggedin) {
+      res.redirect('/admin/login');
+      return;
+    }
+
+    res.render('admin', { layout: 'admin' });
+  })
+
+  .get('/admin/login', async (_, res) => {
+    res.render('login', { layout: 'admin' });
+  })
+
+  .post('/admin/login', loginUser)
+
+  .get('/admin/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      res.redirect('/admin');
+    });
   });

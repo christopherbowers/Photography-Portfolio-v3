@@ -130,3 +130,28 @@ figcaption {
     max-width: 600px;
   }
 }
+
+.login {
+  display: grid;
+  place-items: center;
+}
+
+.login > form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+
+  & > button {
+    max-width: fit-content;
+    border-radius: 0;
+    font-size: inherit;
+    margin: 0;
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 0;
+    box-shadow: 2px 2px #bbb;
+    appearance: none;
+    color: #fff;
+    background-color: hsl(0, 0%, 30%);
+  }
+}

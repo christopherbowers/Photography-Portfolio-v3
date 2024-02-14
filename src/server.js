@@ -1,8 +1,8 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
+import session from 'express-session';
 import { IndexRoutes, ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
 import { notFound, errorHandler } from './middleware/ErrorHandler.js';
 import { initializeMenus, getMenusData } from './middleware/menuMiddleware.js';
@@ -36,6 +36,17 @@ app.use(express.static(path.join(__dirname, '/public/')));
 
 initializeMenus();
 
+app.use(
+  session({
+    secret: '66WAw7NB',
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use((_, res, next) => {
   const menusData = getMenusData();
   res.locals.menus = menusData.body;
@@ -43,7 +54,11 @@ app.use((_, res, next) => {
   next();
 });
 
-app.use(bodyParser.json());
+app.use((req, res, next) => {
+  res.locals.loggedin = req.session.loggedin;
+  next();
+});
+
 app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));
 app.use(cors());
 

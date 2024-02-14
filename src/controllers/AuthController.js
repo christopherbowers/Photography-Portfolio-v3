@@ -16,34 +16,31 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 });
 
-const loginUser = asyncHandler(async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email: email });
 
-  if (!user) {
-    res.status(401);
-    throw new Error('User not found');
+  if (user) {
+    const match = await bcrypt.compare(password, user.password);
+    // Authenticate the user
+    if (match) {
+      req.session.loggedin = true;
+      req.session.email = user.email;
+
+      // Redirect to home page
+      res.redirect('/admin');
+      return;
+    }
   }
 
-  const match = await bcrypt.compare(password, user.password);
-
-  if (!match) {
-    res.status(401);
-    throw new Error('Password incorrect');
-  }
-
-  res.status(200).json({
-    success: true,
-    data: {
-      id: user._id,
-      fullName: user.fullName,
-      username: user.username,
-      email: user.email,
-      token: generateToken(user._id),
-    },
+  res.render('login', {
+    layout: 'admin',
+    email,
+    password,
+    error: 'Invalid username or password',
   });
-});
+};
 
 const checkSession = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
