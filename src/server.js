@@ -30,6 +30,7 @@ const hbs = create({
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './src/views');
+app.set('json spaces', 2); // Pretty print json response
 
 const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '/public/')));

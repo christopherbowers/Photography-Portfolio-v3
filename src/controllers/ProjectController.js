@@ -18,7 +18,7 @@ const getProjects = async (req, res) => {
       }
 
       if (project) {
-        return res.status(200).json({ body: project });
+        return res.status(200).json(project);
       } else {
         return res.status(200).json([]);
       }
