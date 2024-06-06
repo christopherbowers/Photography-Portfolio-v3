@@ -1,6 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const dotenv = require('dotenv');
-dotenv.config();
 
 const ApiKeyMiddleware = asyncHandler(async (req, res, next) => {
   let key = null;

@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
 import fs from 'fs';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-
-dotenv.config();
 
 const { AWS_BUCKET_NAME, AWS_BUCKET_REGION, AWS_ID, AWS_KEY } = process.env;
 
