@@ -55,7 +55,7 @@ app.use((_, res, next) => {
 
   res.setHeader(
       "Content-Security-Policy",
-      `default-src 'self'; script-src 'self' 'nonce-${nonce}'; img-src 'self'; object-src 'none'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'`
+      `script-src 'self' 'nonce-${nonce}'`
   );
 
   const menusData = getMenusData();
