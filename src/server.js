@@ -3,11 +3,12 @@ import cors from 'cors';
 import logger from 'morgan';
 import path from 'path';
 import session from 'express-session';
-import { IndexRoutes, ApiRoutes, AuthRoutes, ImageRoutes } from './routes/index.js';
-import { notFound, errorHandler } from './middleware/ErrorHandler.js';
-import { initializeMenus, getMenusData } from './middleware/menuMiddleware.js';
+import {ApiRoutes, AuthRoutes, ImageRoutes, IndexRoutes} from './routes/index.js';
+import {errorHandler, notFound} from './middleware/ErrorHandler.js';
+import {getMenusData, initializeMenus} from './middleware/menuMiddleware.js';
 import db from './db/index.js';
-import { create } from 'express-handlebars';
+import {create} from 'express-handlebars';
+import crypto from 'crypto';
 
 const { NODE_ENV, PORT = 3001 } = process.env;
 
@@ -49,6 +50,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use((_, res, next) => {
+  const nonce = crypto.randomBytes(6).toString("base64");
+  res.locals.nonce = nonce;
+
+  res.setHeader(
+      "Content-Security-Policy",
+      `default-src 'self'; script-src 'self' 'nonce-${nonce}'; img-src 'self'; object-src 'none'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'`
+  );
+
   const menusData = getMenusData();
   res.locals.menus = menusData.body;
 
