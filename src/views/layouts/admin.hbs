@@ -8,9 +8,25 @@
   </head>
   <body>
     <div class='wrapper'>
+      <div class='grid'>
+        {{#if loggedin}}
+          <nav>
+            <ul>
+              <li>
+                <a href='/admin/projects'>Projects</a>
+              </li>
+              <li>
+                <a href='/admin/images'>Images</a>
+              </li>
+              <li>
+                <a href='/admin/logout'>Logout</a>
+              </li>
+            </ul>
+          </nav>
+        {{/if}}
 
-      {{{body}}}
-
+        {{{body}}}
+      </div>
     </div>
   </body>
 </html>

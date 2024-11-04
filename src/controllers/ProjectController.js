@@ -12,7 +12,8 @@ const getProjects = async (req, res) => {
       let project = await Project.findOne({ slug: name }).select('-createdAt -updatedAt');
       // Only populate image objects if query param is present
       if (Object.keys(req.query).includes('populate')) {
-        project = await Project.findOne({ slug: name })
+        project = await Project
+          .findOne({ slug: name })
           .select('-createdAt -updatedAt')
           .populate('image', 'image_title year image_url');
       }
@@ -42,7 +43,7 @@ const createProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     await Project.findByIdAndDelete(id);
     await Image.deleteMany({ project_id: id });
     return res.sendStatus(200);
@@ -53,7 +54,7 @@ const deleteProject = async (req, res) => {
 
 const updateProject = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
 
     const project = await Project.findByIdAndUpdate(id, req.body);
 
@@ -67,7 +68,8 @@ const getProject = async (slug) => {
   try {
     const project = await Project.findOne({ slug })
       .select('-createdAt -updatedAt')
-      .populate('image', 'image_title year image_url').lean();
+      .populate('image', 'image_title year image_url')
+      .lean();
 
     if (project) {
       return { body: project };

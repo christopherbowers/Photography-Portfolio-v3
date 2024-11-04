@@ -42,7 +42,7 @@ app.use(
     secret: '66WAw7NB',
     resave: true,
     saveUninitialized: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -56,7 +56,7 @@ app.use((_, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.loggedin = req.session.loggedin;
+  res.locals.loggedin = req?.session.loggedin;
   next();
 });
 

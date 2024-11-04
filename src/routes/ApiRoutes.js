@@ -4,7 +4,7 @@ import { addImage, getAllImages, deleteImage, getMenus } from '../controllers/in
 import { getProjects, createProject, deleteProject, updateProject } from '../controllers/ProjectController.js';
 
 const ApiRoutes = Router();
-// const ProtectMiddleware = require('../middleware/ProtectMiddleware');
+
 ApiRoutes.get('/', (_, res) => res.send('✅ API Up'));
 ApiRoutes.get('/projects', getProjects);
 ApiRoutes.get('/images', getAllImages);
