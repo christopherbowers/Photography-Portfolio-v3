@@ -1,19 +1,37 @@
-import { Router } from 'express';
-import { getRandomImage } from '../controllers/index.js';
-import { getProject } from '../controllers/ProjectController.js';
-import { loginUser } from '../controllers/AuthController.js';
+import {Router} from 'express';
+import {getRandomImage} from '../controllers/index.js';
+import {getProject} from '../controllers/ProjectController.js';
+import {loginUser} from '../controllers/AuthController.js';
+import {cache} from '../cache.js';
 
 export const IndexRoutes = Router()
   .get('/', async (_, res) => {
     const image = await getRandomImage();
 
-    res.render('home', {pageTitle: 'Home', image: image });
+    res.render('home', { pageTitle: 'Home', image: image });
   })
 
   .get('/projects/:slug', async (req, res) => {
-    const project = await getProject(req.params.slug);
+    const {
+      params: { slug },
+    } = req;
 
-    res.render('project', { pageTitle: project.body.title, project: project.body });
+    let project = cache.get(slug);
+
+    if (!project) {
+      try {
+        const project = await getProject(slug);
+        cache.set(slug, project);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    project = cache.get(slug);
+
+    const { body } = project;
+
+    res.render('project', { pageTitle: body.title, project: body });
   })
 
   .get('/content/*', (req, res) => {
