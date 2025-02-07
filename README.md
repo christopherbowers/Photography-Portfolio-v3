@@ -1,27 +1,12 @@
 # Photography Portfolio v3
-## A full MERN stack application
 By: Christopher Bowers
 
-[LinkedIn](https://linkedin.com/in/christopher-bowers-dev)
-
+<https://photo.christopherbowers.net/>
 
 ## Description
 
-The third iteration of my photography portfolio buit with React, Express, MongoDB, and Node.js
+The third iteration of my photography portfolio built with Node, Express, and MongoDB.
 
-See previous versions [v1](https://github.com/christopherbowers/Photography-Portfolio-v1) and [v2](https://github.com/christopherbowers/Photography-Portfolio-v2).
+Previous versions [v1](https://github.com/christopherbowers/Photography-Portfolio-v1) and [v2](https://github.com/christopherbowers/Photography-Portfolio-v2).
 
-
-## Technology Stack
-
- - React
- - node.js
- - Express
- - MongoDB
- - SCSS
- - AWS S3
-
-
-## Deployed with Docker
-
-<https://photo.christopherbowers.net/>
+[LinkedIn](https://linkedin.com/in/christopher-bowers-dev)
