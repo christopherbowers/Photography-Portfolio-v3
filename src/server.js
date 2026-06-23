@@ -5,8 +5,7 @@ import path from 'path';
 import session from 'express-session';
 import {ApiRoutes, AuthRoutes, ImageRoutes, IndexRoutes} from './routes/index.js';
 import {errorHandler, notFound} from './middleware/ErrorHandler.js';
-import './services/menuService.js';
-import {cache} from './cache.js';
+import {refreshMenus} from './services/menuService.js';
 import db from './db/index.js';
 import {create} from 'express-handlebars';
 import crypto from 'crypto';
@@ -14,6 +13,9 @@ import crypto from 'crypto';
 const { NODE_ENV, PORT = 3001 } = process.env;
 
 const app = express();
+
+await refreshMenus(app);
+
 const hbs = create({
   extname: 'hbs',
   defaultLayout: 'layout',
@@ -56,9 +58,6 @@ app.use((_, res, next) => {
       "Content-Security-Policy",
       `default-src 'self'; img-src 'self'; object-src 'none'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'`
   );
-
-  const menusData = cache.get('menus');
-  res.locals.menus = menusData;
 
   next();
 });

@@ -1,7 +1,6 @@
-import {cache} from '../cache.js';
 import Project from '../models/projects.js';
 
-export const refreshMenus = async () => {
+export const refreshMenus = async (app) => {
   try {
     /** @type {Array} */
     const projects = await Project.find({}).select('title slug').lean().exec();
@@ -11,14 +10,11 @@ export const refreshMenus = async () => {
       url: `/projects/${slug}`
     }));
 
-    cache.set('menus', menus);
-  } catch (error) {
-    console.error('Could not populate menu cache');
-
-    if (!cache.has('menus')) {
-      throw error;
+    if (app) {
+      app.locals.menus = menus;
     }
+  } catch (error) {
+    console.error('CRITICAL: Menu Refresh Failed:', error);
+    if (!app.locals.menus) throw error;
   }
 };
-
-await refreshMenus();
