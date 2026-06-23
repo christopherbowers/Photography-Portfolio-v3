@@ -101,9 +101,9 @@ nav {
 .image-list,
 .home {
   & figure {
-    margin: 0;
-    margin-bottom: 30px;
+    margin: 0 0 30px;
     width: 100%;
+    min-height: 400px;
     max-width: 600px;
   }
 
@@ -152,7 +152,6 @@ figcaption {
     margin: 0;
     text-align: center;
     border: 1px solid #000;
-    border-radius: 0;
     box-shadow: 2px 2px #bbb;
     appearance: none;
     color: #fff;
