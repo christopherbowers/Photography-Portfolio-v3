@@ -1,31 +1,24 @@
+import {cache} from '../cache.js';
 import Project from '../models/projects.js';
 
-const getMenus = async () => {
+export const refreshMenus = async () => {
   try {
-    const projects = await Project.find({}).select('title slug').lean();
-    const menus = projects.map(({ title, slug, _id }) => {
-      return { id: _id, title: title, url: `/projects/${slug}` };
-    });
-    return { body: menus };
+    /** @type {Array} */
+    const projects = await Project.find({}).select('title slug').lean().exec();
+    const menus = projects.map(({ title, slug, _id }) => ({
+      id: _id.toString(),
+      title,
+      url: `/projects/${slug}`
+    }));
+
+    cache.set('menus', menus);
   } catch (error) {
-    return { body: [] };
+    console.error('Could not populate menu cache');
+
+    if (!cache.has('menus')) {
+      throw error;
+    }
   }
 };
 
-let menusData;
-
-const fetchMenus = async () => {
-  return await getMenus();
-};
-
-const initializeMenus = async () => {
-  if (!menusData) {
-    menusData = await fetchMenus();
-  }
-};
-
-const getMenusData = () => {
-  return menusData;
-};
-
-export { initializeMenus, getMenusData };
+await refreshMenus();

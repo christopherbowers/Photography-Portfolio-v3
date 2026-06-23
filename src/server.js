@@ -5,7 +5,8 @@ import path from 'path';
 import session from 'express-session';
 import {ApiRoutes, AuthRoutes, ImageRoutes, IndexRoutes} from './routes/index.js';
 import {errorHandler, notFound} from './middleware/ErrorHandler.js';
-import {getMenusData, initializeMenus} from './middleware/menuMiddleware.js';
+import './middleware/menuMiddleware.js';
+import {cache} from './cache.js';
 import db from './db/index.js';
 import {create} from 'express-handlebars';
 import crypto from 'crypto';
@@ -36,8 +37,6 @@ app.set('json spaces', 2); // Pretty print json response
 const __dirname = new URL('.', import.meta.url).pathname;
 app.use(express.static(path.join(__dirname, '/public/')));
 
-initializeMenus();
-
 app.use(
   session({
     secret: '66WAw7NB',
@@ -58,8 +57,8 @@ app.use((_, res, next) => {
       `default-src 'self'; img-src 'self'; object-src 'none'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'`
   );
 
-  const menusData = getMenusData();
-  res.locals.menus = menusData.body;
+  const menusData = cache.get('menus');
+  res.locals.menus = menusData;
 
   next();
 });
