@@ -5,7 +5,7 @@ import path from 'path';
 import session from 'express-session';
 import {ApiRoutes, AuthRoutes, ImageRoutes, IndexRoutes} from './routes/index.js';
 import {errorHandler, notFound} from './middleware/ErrorHandler.js';
-import './middleware/menuMiddleware.js';
+import './services/menuService.js';
 import {cache} from './cache.js';
 import db from './db/index.js';
 import {create} from 'express-handlebars';
