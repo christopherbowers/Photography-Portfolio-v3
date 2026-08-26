@@ -31,6 +31,9 @@ export const IndexRoutes = Router()
 
     const { body } = project;
 
+    // Prefetched by quicklink; a freshness window lets navigation reuse the
+    // prefetched copy instead of re-fetching. private: responses carry Set-Cookie.
+    res.set('Cache-Control', 'private, max-age=300');
     res.render('project', { pageTitle: body.title, project: body });
   })
 

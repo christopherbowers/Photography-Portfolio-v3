@@ -8,9 +8,8 @@ import {errorHandler, notFound} from './middleware/ErrorHandler.js';
 import {refreshMenus} from './services/menuService.js';
 import db from './db/index.js';
 import {create} from 'express-handlebars';
-import crypto from 'crypto';
 
-const { NODE_ENV, PORT = 3001 } = process.env;
+const { NODE_ENV, PORT = 3001, SESSION_SECRET } = process.env;
 
 const app = express();
 
@@ -35,45 +34,74 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './src/views');
 app.set('json spaces', 2); // Pretty print json response
+app.set('trust proxy', 1); // Behind Caddy; required for a Secure session cookie
+
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'none'",
+  "script-src 'self'",
+  "style-src 'self'",
+  "img-src 'self' data:", // data: for the inline favicon stub in both layouts
+  "connect-src 'self'", // Safari has no <link rel=prefetch>; quicklink falls back to fetch/XHR
+  "form-action 'self'",
+  "base-uri 'none'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+].join('; ');
+
+app.use((_, res, next) => {
+  res.setHeader('Content-Security-Policy', CONTENT_SECURITY_POLICY);
+  next();
+});
+
+// Admin is off unless explicitly enabled. While off the site is read-only:
+// the admin UI, the auth routes (including the unauthenticated /register),
+// and every mutating request are 404s. Set ADMIN_ENABLED=true to restore.
+const ADMIN_ENABLED = process.env.ADMIN_ENABLED === 'true';
+
+if (!ADMIN_ENABLED) {
+  app.use((req, res, next) => {
+    const isAdminPath = req.path === '/admin' || req.path.startsWith('/admin/') || req.path.startsWith('/api/auth');
+    const isMutating = req.method !== 'GET' && req.method !== 'HEAD';
+
+    if (isAdminPath || isMutating) {
+      return res.sendStatus(404); // 404 rather than 403: don't advertise the endpoints
+    }
+
+    next();
+  });
+}
 
 const __dirname = new URL('.', import.meta.url).pathname;
-app.use(express.static(path.join(__dirname, '/public/')));
+app.use(express.static(path.join(__dirname, '/public/'), { maxAge: '1h' }));
 
-app.use(
-  session({
-    secret: '66WAw7NB',
-    resave: true,
-    saveUninitialized: true,
-  }),
-);
+if (ADMIN_ENABLED) {
+  app.use(
+    session({
+      secret: SESSION_SECRET,
+      resave: true,
+      saveUninitialized: true,
+      cookie: {
+        httpOnly: true,
+        sameSite: 'lax',
+        secure: NODE_ENV === 'production', // dev is plain http, where a Secure cookie is never sent
+      },
+    }),
+  );
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((_, res, next) => {
-  const nonce = crypto.randomBytes(6).toString("base64");
-  res.locals.nonce = nonce;
-
-  res.setHeader(
-      "Content-Security-Policy",
-      `default-src 'self'; img-src 'self'; object-src 'none'; frame-ancestors 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'nonce-${nonce}'`
-  );
-
-  next();
-});
-
 app.use((req, res, next) => {
-  res.locals.loggedin = req?.session.loggedin;
+  res.locals.loggedin = req.session?.loggedin;
   next();
 });
 
 app.use(logger('dev', { skip: (_, __) => NODE_ENV === 'production' }));
-app.use(cors());
-
 app.use('/', IndexRoutes);
-app.use('/api', ApiRoutes);
+app.use('/api', cors(), ApiRoutes);
 app.use('/images', ImageRoutes);
-app.use('/api/auth', AuthRoutes);
+app.use('/api/auth', cors(), AuthRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
